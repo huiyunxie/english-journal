@@ -33,6 +33,24 @@
         header { text-align: center; margin-bottom: 28px; }
         header h1 { font-family: 'Crimson Pro', serif; font-size: 2.8rem; font-weight: 600; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
         header p { color: var(--text-secondary); font-size: 1rem; font-weight: 300; }
+
+        /* ✅ 新增：顶部快捷跳转按钮 */
+        .quick-links { display:flex; justify-content:center; gap:10px; margin-top:14px; flex-wrap:wrap; }
+        .quick-link-btn{
+            padding: 9px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            display:flex; align-items:center; gap:8px;
+            text-decoration:none;
+        }
+        .quick-link-btn:hover{ background: var(--bg-hover); border-color: var(--accent-cyan); transform: translateY(-1px); }
+        .quick-link-btn .hint{ color: var(--text-muted); font-size: 0.78rem; }
+
         .nav-tabs { display: flex; justify-content: center; gap: 6px; margin-bottom: 28px; flex-wrap: wrap; }
         .nav-tab { padding: 10px 20px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s ease; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
         .nav-tab:hover { background: var(--bg-hover); color: var(--text-primary); }
@@ -74,7 +92,21 @@
         .record-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .record-card h3 .icon { font-size: 1.05rem; }
         .record-card h3 .auto-badge { font-size: 0.6rem; background: var(--accent-cyan); color: var(--bg-primary); padding: 2px 6px; border-radius: 6px; font-weight: 500; }
-        .conversation-input { width: 100%; min-height: 130px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 0.88rem; resize: vertical; transition: border-color 0.2s ease; line-height: 1.7; }
+        .conversation-input {
+    width: 100%;
+    min-height: 260px;     /* 原来是 130px */
+    max-height: 70vh;      /* 防止无限撑爆屏幕 */
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;      /* 允许你手动拖大 */
+    transition: border-color 0.2s ease;
+    line-height: 1.7;
+}
         .conversation-input:focus { outline: none; border-color: var(--accent-green); }
         .conversation-input::placeholder { color: var(--text-muted); }
         .extract-section { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
@@ -97,6 +129,13 @@
         .word-card-actions button:hover { color: var(--accent-red); background: rgba(248, 81, 73, 0.1); }
         .word-card-actions button.refresh:hover { color: var(--accent-cyan); background: rgba(57, 197, 207, 0.1); }
         .word-card-meaning { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 10px; padding: 8px 10px; background: rgba(88, 166, 255, 0.08); border-radius: 6px; border-left: 3px solid var(--accent-blue); }
+        /* ✅ 新增：英文释义小字显示 */
+        .word-card-meaning-en {
+            margin-top: 6px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
         .word-card-example { font-size: 0.85rem; padding: 10px 12px; background: rgba(163, 113, 247, 0.08); border-radius: 6px; border-left: 3px solid var(--accent-purple); cursor: pointer; transition: all 0.2s; }
         .word-card-example:hover { background: rgba(163, 113, 247, 0.12); }
         .word-card-example.speaking { border-left-color: var(--accent-cyan); background: rgba(57, 197, 207, 0.1); }
@@ -158,7 +197,8 @@
         .vocab-grid-word { font-family: 'Crimson Pro', serif; font-size: 1.3rem; color: var(--accent-blue); }
         .vocab-grid-phonetic { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent-purple); margin-left: 8px; }
         .vocab-grid-meta { display: flex; gap: 6px; align-items: center; }
-        .vocab-grid-meaning { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 10px; }
+        .vocab-grid-meaning { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 6px; }
+        .vocab-grid-meaning-en { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
         .vocab-grid-example { font-size: 0.82rem; color: var(--text-secondary); padding: 8px 10px; background: var(--bg-secondary); border-radius: 6px; border-left: 2px solid var(--accent-purple); }
         .vocab-grid-example .en { font-family: 'Crimson Pro', serif; font-style: italic; margin-bottom: 3px; color: var(--text-primary); }
         .vocab-grid-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 0.75rem; color: var(--text-muted); }
@@ -205,7 +245,8 @@
         .flashcard-word:hover { color: var(--accent-cyan); }
         .flashcard-phonetic { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--accent-purple); margin-bottom: 12px; }
         .flashcard-hint { font-size: 0.85rem; color: var(--text-muted); }
-        .flashcard-meaning { font-size: 1.3rem; color: var(--text-primary); text-align: center; margin-bottom: 16px; }
+        .flashcard-meaning { font-size: 1.3rem; color: var(--text-primary); text-align: center; margin-bottom: 10px; }
+        .flashcard-meaning-en { font-size: 0.82rem; color: var(--text-muted); text-align:center; max-width: 90%; line-height:1.5; margin-bottom: 12px; }
         .flashcard-example { font-size: 0.95rem; text-align: center; max-width: 90%; }
         .flashcard-example .en { font-family: 'Crimson Pro', serif; font-style: italic; color: var(--text-primary); margin-bottom: 4px; }
         .flashcard-example .zh { color: var(--text-secondary); font-size: 0.88rem; }
@@ -277,13 +318,25 @@
         <header>
             <h1>Daily English Journal</h1>
             <p>每天30分钟，记录与AI的英语对话</p>
+
+            <!-- ✅ 新增：ChatGPT & YouTube 快捷入口 -->
+            <div class="quick-links">
+                <a class="quick-link-btn" href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">
+                    🤖 ChatGPT <span class="hint">打开练口语</span>
+                </a>
+                <a class="quick-link-btn" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+                    ▶️ YouTube <span class="hint">找素材练听力</span>
+                </a>
+            </div>
         </header>
+
         <div class="nav-tabs">
             <div class="nav-tab active" onclick="switchPage('journal')">📅 每日记录</div>
             <div class="nav-tab" onclick="switchPage('vocabulary')">📚 生词库 <span class="badge" id="vocabCount">0</span></div>
             <div class="nav-tab" onclick="switchPage('expressions')">💬 今日表达 <span class="badge" id="exprCount">0</span></div>
             <div class="nav-tab" onclick="switchPage('memory')">🧠 记忆模式</div>
         </div>
+
         <div class="page active" id="journalPage">
             <div class="stats-grid">
                 <div class="stat-card streak"><div class="label">🔥 连续打卡</div><div class="value" id="streakDays">0</div></div>
@@ -292,29 +345,35 @@
                 <div class="stat-card expressions"><div class="label">💬 今日表达</div><div class="value" id="totalExpressions">0</div></div>
                 <div class="stat-card mastered"><div class="label">🏆 已掌握</div><div class="value" id="masteredWords">0</div></div>
             </div>
+
             <div class="main-content">
                 <div class="calendar-section">
                     <div class="calendar-header">
                         <div class="calendar-title" id="calendarTitle">2024年1月</div>
                         <div class="calendar-nav"><button onclick="prevMonth()">‹</button><button onclick="nextMonth()">›</button></div>
                     </div>
-                    <div class="calendar-weekdays"><div class="weekday">日</div><div class="weekday">一</div><div class="weekday">二</div><div class="weekday">三</div><div class="weekday">四</div><div class="weekday">五</div><div class="weekday">六</div></div>
+                    <div class="calendar-weekdays">
+                        <div class="weekday">日</div><div class="weekday">一</div><div class="weekday">二</div><div class="weekday">三</div><div class="weekday">四</div><div class="weekday">五</div><div class="weekday">六</div>
+                    </div>
                     <div class="calendar-days" id="calendarDays"></div>
                 </div>
+
                 <div class="record-section">
                     <div class="record-card">
                         <h3><span class="icon">💬</span> 今日对话内容 <span class="auto-badge">智能提取</span></h3>
-                        <textarea class="conversation-input" id="conversationInput" placeholder="粘贴今天和ChatGPT的对话内容...&#10;&#10;点击「提取生词」自动获取：&#10;• 单词、音标、释义、例句"></textarea>
+                        <textarea class="conversation-input" id="conversationInput" placeholder="粘贴今天和ChatGPT的对话内容...&#10;&#10;点击「提取生词」自动获取：&#10;• 单词、音标、释义（中文+英文）、例句（英文+中文）"></textarea>
                         <div class="extract-section">
-                            <button class="extract-btn" onclick="extractVocabulary()" id="extractVocabBtn"><span>📖</span> 提取生词（自动查词典）</button>
+                            <button class="extract-btn" onclick="extractVocabulary()" id="extractVocabBtn"><span>📖</span> 提取生词（自动查词典+中文翻译）</button>
                             <button class="extract-btn" onclick="extractExpressions()" id="extractExprBtn"><span>💡</span> 提取表达</button>
                         </div>
                     </div>
+
                     <div class="record-card">
-                        <h3><span class="icon">📖</span> 生词记录 <span class="auto-badge">含音标+例句</span></h3>
+                        <h3><span class="icon">📖</span> 生词记录 <span class="auto-badge">含音标+中英释义+例句</span></h3>
                         <div class="word-cards" id="wordCards"></div>
                         <button class="add-btn" onclick="addWordCard()"><span>+</span> 手动添加生词</button>
                     </div>
+
                     <div class="record-card expression-card">
                         <h3><span class="icon">💬</span> 今日表达 <span class="auto-badge">点击朗读</span></h3>
                         <div class="expression-list" id="expressionsList">
@@ -328,14 +387,17 @@
                         </div>
                         <button class="add-btn" onclick="addExpression()"><span>+</span> 添加表达</button>
                     </div>
+
                     <div class="save-section">
                         <button class="btn btn-secondary" onclick="clearForm()">清空</button>
                         <button class="btn btn-primary" onclick="saveRecord()"><span>💾</span> 保存</button>
                     </div>
+
                     <div id="historyPreview"></div>
                 </div>
             </div>
         </div>
+
         <div class="page" id="vocabularyPage">
             <div class="vocab-page-header">
                 <h2>📚 我的生词库</h2>
@@ -349,6 +411,7 @@
             <div class="vocab-grid" id="vocabGrid"></div>
             <div class="pagination" id="vocabPagination"></div>
         </div>
+
         <div class="page" id="expressionsPage">
             <div class="vocab-page-header">
                 <h2>💬 今日表达库 <span style="font-size:0.8rem;color:var(--text-muted);font-weight:400">点击朗读</span></h2>
@@ -357,6 +420,7 @@
             <div class="expression-grid" id="expressionGrid"></div>
             <div class="pagination" id="exprPagination"></div>
         </div>
+
         <div class="page" id="memoryPage">
             <div class="memory-mode-container">
                 <div class="memory-stats">
@@ -369,6 +433,7 @@
             </div>
         </div>
     </div>
+
     <div class="speech-control">
         <label>🔊 语速</label>
         <input type="range" id="speechRate" min="0.3" max="1" step="0.1" value="0.6" oninput="updateSpeechRate()">
@@ -378,10 +443,47 @@
 
 <script>
 const STORAGE_KEY='english_journal_data',VOCAB_KEY='english_vocabulary_data',EXPR_KEY='english_expressions_data';
+
+/* ✅ 新增：翻译缓存（避免重复请求） */
+const TRANSLATE_CACHE_KEY='english_translate_cache_v1';
+function getTranslateCache(){
+    try { return JSON.parse(localStorage.getItem(TRANSLATE_CACHE_KEY)||'{}'); }
+    catch(e){ return {}; }
+}
+function saveTranslateCache(cache){
+    localStorage.setItem(TRANSLATE_CACHE_KEY, JSON.stringify(cache));
+}
+/* ✅ 新增：英文->中文翻译（MyMemory，无需key） */
+async function translateToZh(text){
+    const t=(text||'').trim();
+    if(!t) return '';
+    const cache=getTranslateCache();
+    const key='en2zh:'+t.slice(0,300);
+    if(cache[key]) return cache[key];
+
+    try{
+        const url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=en|zh-CN`;
+        const res=await fetch(url);
+        if(!res.ok) return '';
+        const data=await res.json();
+        const zh=((data && data.responseData && data.responseData.translatedText) || '').trim();
+        if(zh){
+            cache[key]=zh;
+            saveTranslateCache(cache);
+            return zh;
+        }
+        return '';
+    }catch(e){
+        console.error('Translate failed:', e);
+        return '';
+    }
+}
+
 let currentYear=new Date().getFullYear(),currentMonth=new Date().getMonth(),selectedDate=new Date().toISOString().split('T')[0];
 let currentVocabPage=1,currentExprPage=1,PER_PAGE=12,speechRate=0.6,currentSpeaking=null;
 let reviewQueue=[],currentCardIndex=0,reviewStats={again:0,hard:0,good:0,easy:0},isCardFlipped=false;
 let wordCardsData=[];
+
 const commonWords=new Set(['the','a','an','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','must','shall','can','need','to','of','in','for','on','with','at','by','from','up','about','into','over','after','under','i','you','he','she','it','we','they','me','him','her','us','them','my','your','his','its','our','their','this','that','these','those','what','which','who','where','when','why','how','all','each','every','both','few','more','most','other','some','no','not','only','same','so','than','too','very','just','also','now','here','there','then','and','but','or','if','because','as','until','while','although','though','before','since','unless','however','therefore','like','get','got','make','made','go','went','come','came','take','took','see','saw','know','knew','think','thought','want','say','said','tell','told','use','used','find','found','give','gave','let','put','seem','leave','left','call','called','keep','kept','try','tried','ask','asked','work','worked','become','became','look','looked','show','showed','hear','heard','play','played','run','ran','move','moved','live','lived','believe','believed','hold','held','bring','brought','happen','happened','write','wrote','provide','provided','sit','sat','stand','stood','lose','lost','pay','paid','meet','met','include','included','continue','continued','set','learn','learned','change','changed','lead','led','understand','understood','watch','watched','follow','followed','stop','stopped','create','created','speak','spoke','read','allow','allowed','add','added','spend','spent','grow','grew','open','opened','walk','walked','win','won','offer','offered','remember','remembered','love','loved','consider','considered','appear','appeared','buy','bought','wait','waited','serve','served','die','died','send','sent','expect','expected','build','built','stay','stayed','fall','fell','cut','reach','reached','kill','killed','remain','remained','suggest','suggested','raise','raised','pass','passed','sell','sold','require','required','report','reported','decide','decided','pull','pulled']);
 
 // 语音功能
@@ -399,7 +501,7 @@ function getExpressions(){return JSON.parse(localStorage.getItem(EXPR_KEY)||'{}'
 function saveExpressions(e){localStorage.setItem(EXPR_KEY,JSON.stringify(e))}
 function getRecord(d){return getAllRecords()[d]||null}
 
-// 词典API - 使用Free Dictionary API
+/* ✅ 词典API（英文） + 中文翻译补全（MyMemory） */
 async function lookupWord(word){
     try{
         const res=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word.toLowerCase())}`);
@@ -407,63 +509,109 @@ async function lookupWord(word){
         const data=await res.json();
         if(!data||!data[0])return null;
         const entry=data[0];
+
         let phonetic='';
-        if(entry.phonetic)phonetic=entry.phonetic;
+        if(entry.phonetic) phonetic=entry.phonetic;
         else if(entry.phonetics&&entry.phonetics.length>0){
             const p=entry.phonetics.find(x=>x.text)||entry.phonetics[0];
             if(p.text)phonetic=p.text;
         }
-        let meaning='';
+
+        let meaningEn='';
+        let meaningZh='';
         let example='';
         let exampleZh='';
+
         if(entry.meanings&&entry.meanings.length>0){
             const m=entry.meanings[0];
             const partOfSpeech=m.partOfSpeech||'';
             if(m.definitions&&m.definitions.length>0){
                 const def=m.definitions[0];
-                meaning=(partOfSpeech?`[${partOfSpeech}] `:'')+def.definition;
-                if(def.example)example=def.example;
+                meaningEn=(partOfSpeech?`[${partOfSpeech}] `:'')+(def.definition||'');
+                if(def.example) example=def.example;
             }
         }
-        return{word:entry.word||word,phonetic,meaning,example,exampleZh};
-    }catch(e){console.error('Dictionary lookup failed:',e);return null}
+
+        // ✅ 自动翻译：释义英文 -> 中文、例句英文 -> 中文
+        if(meaningEn){
+            meaningZh = await translateToZh(meaningEn);
+        }
+        if(example){
+            exampleZh = await translateToZh(example);
+        }
+
+        return{
+            word:entry.word||word,
+            phonetic,
+            meaningEn,
+            meaningZh,
+            example,
+            exampleZh
+        };
+    }catch(e){
+        console.error('Dictionary lookup failed:',e);
+        return null;
+    }
 }
 
 // 提取生词
 async function extractVocabulary(){
     const btn=document.getElementById('extractVocabBtn');
     btn.classList.add('extracting');
-    btn.innerHTML='<span>⏳</span> 提取并查询词典...';
+    btn.innerHTML='<span>⏳</span> 提取并查询词典+翻译...';
+
     const text=document.getElementById('conversationInput').value;
     const words=extractWordsFromText(text);
+
     if(words.length===0){
         showToast('未找到生词');
         btn.classList.remove('extracting');
-        btn.innerHTML='<span>📖</span> 提取生词（自动查词典）';
+        btn.innerHTML='<span>📖</span> 提取生词（自动查词典+中文翻译）';
         return;
     }
+
     wordCardsData=[];
     for(let i=0;i<Math.min(words.length,10);i++){
         const w=words[i];
-        wordCardsData.push({id:Date.now()+i,word:w.word,phonetic:'',meaning:w.meaning||'',example:'',exampleZh:'',loading:true});
+        wordCardsData.push({
+            id:Date.now()+i,
+            word:w.word,
+            phonetic:'',
+            meaning:'',       // ✅ 中文释义（可编辑）
+            meaningEn:'',     // ✅ 英文释义（参考）
+            example:'',
+            exampleZh:'',
+            loading:true
+        });
     }
     renderWordCards();
+
     for(let i=0;i<wordCardsData.length;i++){
         const card=wordCardsData[i];
         const dictData=await lookupWord(card.word);
+
         if(dictData){
             card.phonetic=dictData.phonetic||'';
-            if(!card.meaning&&dictData.meaning)card.meaning=dictData.meaning;
+
+            // ✅ 先放英文释义到 meaningEn，再把中文翻译放到 meaning
+            card.meaningEn=dictData.meaningEn||'';
+            // 若翻译成功：meaning=中文；否则保留原有（可能用户自己写的中文）
+            if(dictData.meaningZh) card.meaning=dictData.meaningZh;
+
             card.example=dictData.example||'';
             card.exampleZh=dictData.exampleZh||'';
         }
+
         card.loading=false;
         renderWordCards();
-        await new Promise(r=>setTimeout(r,300));
+
+        // ✅ 小延迟，减少接口压力
+        await new Promise(r=>setTimeout(r,220));
     }
+
     showToast(`提取 ${wordCardsData.length} 个生词`);
     btn.classList.remove('extracting');
-    btn.innerHTML='<span>📖</span> 提取生词（自动查词典）';
+    btn.innerHTML='<span>📖</span> 提取生词（自动查词典+中文翻译）';
 }
 
 function extractWordsFromText(text){
@@ -501,39 +649,51 @@ function renderWordCards(){
                     <button onclick="deleteWordCard(${idx})" title="删除">×</button>
                 </div>
             </div>
+
+            ${card.meaning ? `<div class="word-card-meaning">
+                ${escapeHtml(card.meaning)}
+                ${card.meaningEn ? `<div class="word-card-meaning-en">EN: ${escapeHtml(card.meaningEn)}</div>` : ``}
+            </div>` : ``}
+
             <div class="word-card-input">
                 <div class="row">
                     <input type="text" value="${escapeHtml(card.word)}" onchange="updateWordCard(${idx},'word',this.value)" placeholder="单词">
                     <input type="text" value="${escapeHtml(card.phonetic)}" onchange="updateWordCard(${idx},'phonetic',this.value)" placeholder="音标">
                 </div>
-                <input type="text" value="${escapeHtml(card.meaning)}" onchange="updateWordCard(${idx},'meaning',this.value)" placeholder="中文释义">
+                <input type="text" value="${escapeHtml(card.meaning)}" onchange="updateWordCard(${idx},'meaning',this.value)" placeholder="中文释义（自动翻译，可编辑）">
+                <input type="text" value="${escapeHtml(card.meaningEn||'')}" onchange="updateWordCard(${idx},'meaningEn',this.value)" placeholder="英文释义（参考，可编辑）">
                 <textarea onchange="updateWordCard(${idx},'example',this.value)" placeholder="例句（英文）">${escapeHtml(card.example)}</textarea>
                 <input type="text" value="${escapeHtml(card.exampleZh)}" onchange="updateWordCard(${idx},'exampleZh',this.value)" placeholder="例句翻译（中文）">
             </div>
-            ${card.loading?'<div class="word-card-status">⏳ 正在查询词典...</div>':''}
+            ${card.loading?'<div class="word-card-status">⏳ 正在查询词典+翻译...</div>':''}
         </div>
     `).join('');
 }
 
 function updateWordCard(idx,field,value){wordCardsData[idx][field]=value}
 function deleteWordCard(idx){wordCardsData.splice(idx,1);renderWordCards()}
+
 async function refreshWordCard(idx){
     const card=wordCardsData[idx];
     card.loading=true;
     renderWordCards();
+
     const dictData=await lookupWord(card.word);
     if(dictData){
         card.phonetic=dictData.phonetic||card.phonetic;
-        card.meaning=dictData.meaning||card.meaning;
+        card.meaningEn=dictData.meaningEn||card.meaningEn||'';
+        if(dictData.meaningZh) card.meaning=dictData.meaningZh||card.meaning;
         card.example=dictData.example||card.example;
+        if(dictData.exampleZh) card.exampleZh=dictData.exampleZh||card.exampleZh;
     }
+
     card.loading=false;
     renderWordCards();
     showToast('已更新');
 }
 
 function addWordCard(){
-    wordCardsData.push({id:Date.now(),word:'',phonetic:'',meaning:'',example:'',exampleZh:'',loading:false});
+    wordCardsData.push({id:Date.now(),word:'',phonetic:'',meaning:'',meaningEn:'',example:'',exampleZh:'',loading:false});
     renderWordCards();
 }
 
@@ -588,7 +748,14 @@ function switchPage(page){
 
 function saveRecord(){
     const conv=document.getElementById('conversationInput').value.trim();
-    const words=wordCardsData.filter(w=>w.word).map(w=>({word:w.word,phonetic:w.phonetic,meaning:w.meaning,example:w.example,exampleZh:w.exampleZh}));
+    const words=wordCardsData.filter(w=>w.word).map(w=>({
+        word:w.word,
+        phonetic:w.phonetic,
+        meaning:w.meaning,
+        meaningEn:w.meaningEn||'',
+        example:w.example,
+        exampleZh:w.exampleZh
+    }));
     const expr=[];
     document.querySelectorAll('#expressionsList .vocab-item').forEach(item=>{
         const en=item.querySelector('.en').value.trim(),zh=item.querySelector('.zh').value.trim();
@@ -611,12 +778,25 @@ function syncVocabulary(){
     Object.keys(records).forEach(date=>{
         const r=records[date];
         if(r.words){r.words.forEach(w=>{
-            const k=w.word.toLowerCase();
+            const k=(w.word||'').toLowerCase();
             if(w.word&&!vocab[k]){
-                vocab[k]={word:w.word,phonetic:w.phonetic||'',meaning:w.meaning||'',example:w.example||'',exampleZh:w.exampleZh||'',addedDate:date,mastery:'new',reviewCount:0,lastReview:null,nextReview:date};
+                vocab[k]={
+                    word:w.word,
+                    phonetic:w.phonetic||'',
+                    meaning:w.meaning||'',
+                    meaningEn:w.meaningEn||'',
+                    example:w.example||'',
+                    exampleZh:w.exampleZh||'',
+                    addedDate:date,
+                    mastery:'new',
+                    reviewCount:0,
+                    lastReview:null,
+                    nextReview:date
+                };
             }else if(w.word&&vocab[k]){
                 if(w.phonetic&&!vocab[k].phonetic)vocab[k].phonetic=w.phonetic;
                 if(w.meaning&&!vocab[k].meaning)vocab[k].meaning=w.meaning;
+                if(w.meaningEn&&!vocab[k].meaningEn)vocab[k].meaningEn=w.meaningEn;
                 if(w.example&&!vocab[k].example)vocab[k].example=w.example;
                 if(w.exampleZh&&!vocab[k].exampleZh)vocab[k].exampleZh=w.exampleZh;
             }
@@ -650,7 +830,16 @@ function loadRecord(date){
     if(r){
         document.getElementById('conversationInput').value=r.conversation||'';
         if(r.words&&r.words.length>0){
-            wordCardsData=r.words.map((w,i)=>({id:Date.now()+i,word:w.word||'',phonetic:w.phonetic||'',meaning:w.meaning||'',example:w.example||'',exampleZh:w.exampleZh||'',loading:false}));
+            wordCardsData=r.words.map((w,i)=>({
+                id:Date.now()+i,
+                word:w.word||'',
+                phonetic:w.phonetic||'',
+                meaning:w.meaning||'',
+                meaningEn:w.meaningEn||'',
+                example:w.example||'',
+                exampleZh:w.exampleZh||'',
+                loading:false
+            }));
             renderWordCards();
         }
         if(r.expressions&&r.expressions.length>0){
@@ -672,10 +861,29 @@ function renderCalendar(){
     const today=new Date().toISOString().split('T')[0];
     let h='';
     const pld=new Date(currentYear,currentMonth,0).getDate();
-    for(let i=sd-1;i>=0;i--){const d=pld-i;const pm=currentMonth===0?11:currentMonth-1;const py=currentMonth===0?currentYear-1:currentYear;const ds=`${py}-${String(pm+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;const hr=records[ds]?'has-record':'';h+=`<div class="day other-month ${hr}" data-date="${ds}">${d}</div>`}
-    for(let d=1;d<=dm;d++){const ds=`${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;const it=ds===today?'today':'';const is=ds===selectedDate?'selected':'';const hr=records[ds]?'has-record':'';h+=`<div class="day ${it} ${is} ${hr}" data-date="${ds}">${d}</div>`}
+    for(let i=sd-1;i>=0;i--){
+        const d=pld-i;
+        const pm=currentMonth===0?11:currentMonth-1;
+        const py=currentMonth===0?currentYear-1:currentYear;
+        const ds=`${py}-${String(pm+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const hr=records[ds]?'has-record':'';
+        h+=`<div class="day other-month ${hr}" data-date="${ds}">${d}</div>`;
+    }
+    for(let d=1;d<=dm;d++){
+        const ds=`${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const it=ds===today?'today':'';
+        const is=ds===selectedDate?'selected':'';
+        const hr=records[ds]?'has-record':'';
+        h+=`<div class="day ${it} ${is} ${hr}" data-date="${ds}">${d}</div>`;
+    }
     const rd=42-(sd+dm);
-    for(let d=1;d<=rd;d++){const nm=currentMonth===11?0:currentMonth+1;const ny=currentMonth===11?currentYear+1:currentYear;const ds=`${ny}-${String(nm+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;const hr=records[ds]?'has-record':'';h+=`<div class="day other-month ${hr}" data-date="${ds}">${d}</div>`}
+    for(let d=1;d<=rd;d++){
+        const nm=currentMonth===11?0:currentMonth+1;
+        const ny=currentMonth===11?currentYear+1:currentYear;
+        const ds=`${ny}-${String(nm+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const hr=records[ds]?'has-record':'';
+        h+=`<div class="day other-month ${hr}" data-date="${ds}">${d}</div>`;
+    }
     document.getElementById('calendarDays').innerHTML=h;
     document.querySelectorAll('.day:not(.empty)').forEach(de=>de.addEventListener('click',()=>selectDate(de.dataset.date)));
 }
@@ -706,9 +914,10 @@ function showHistoryPreview(){
     if(r.words&&r.words.length>0){
         h+='<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">';
         r.words.forEach(w=>{
+            const meaningEn = w.meaningEn || '';
             h+=`<div class="word-card" style="cursor:pointer" onclick="speak('${escapeHtml(w.word).replace(/'/g,"\\'")}')">
                 <div class="word-card-header"><div class="word-card-main"><span class="word-card-word">${escapeHtml(w.word)}</span><span class="word-card-phonetic">${escapeHtml(w.phonetic||'')}</span></div></div>
-                ${w.meaning?`<div class="word-card-meaning">${escapeHtml(w.meaning)}</div>`:''}
+                ${w.meaning?`<div class="word-card-meaning">${escapeHtml(w.meaning)}${meaningEn?`<div class="word-card-meaning-en">EN: ${escapeHtml(meaningEn)}</div>`:''}</div>`:''}
                 ${w.example?`<div class="word-card-example" onclick="event.stopPropagation();speakElement(this,'${escapeHtml(w.example).replace(/'/g,"\\'")}')"><div class="en"><span class="speak-icon">🔊</span> ${escapeHtml(w.example)}</div>${w.exampleZh?`<div class="zh">${escapeHtml(w.exampleZh)}</div>`:''}</div>`:''}
             </div>`;
         });
@@ -725,27 +934,53 @@ function showHistoryPreview(){
 function renderVocabGrid(){
     const vocab=getVocabulary();const search=document.getElementById('vocabSearch').value.toLowerCase();const mf=document.getElementById('masteryFilter').value;
     let items=Object.values(vocab);
-    if(search)items=items.filter(v=>v.word.toLowerCase().includes(search)||v.meaning.toLowerCase().includes(search));
+    if(search)items=items.filter(v=>(v.word||'').toLowerCase().includes(search)||(v.meaning||'').toLowerCase().includes(search)||(v.meaningEn||'').toLowerCase().includes(search));
     if(mf!=='all')items=items.filter(v=>v.mastery===mf);
     items.sort((a,b)=>new Date(b.addedDate)-new Date(a.addedDate));
     const tp=Math.ceil(items.length/PER_PAGE);const si=(currentVocabPage-1)*PER_PAGE;const pi=items.slice(si,si+PER_PAGE);
     const g=document.getElementById('vocabGrid');
-    if(items.length===0){g.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="icon">📚</div><p>还没有生词</p></div>'}
-    else{g.innerHTML=pi.map(v=>`
-        <div class="vocab-grid-card" onclick="speakElement(this,'${escapeHtml(v.word).replace(/'/g,"\\'")}')">
-            <div class="vocab-grid-header">
-                <div><span class="vocab-grid-word">${escapeHtml(v.word)}</span><span class="vocab-grid-phonetic">${escapeHtml(v.phonetic||'')}</span></div>
-                <div class="vocab-grid-meta">${getMasteryBadge(v.mastery)}<button class="action-btn" onclick="event.stopPropagation();deleteVocab('${v.word.toLowerCase()}')" style="margin-left:4px">🗑️</button></div>
+
+    if(items.length===0){
+        g.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="icon">📚</div><p>还没有生词</p></div>';
+    }else{
+        g.innerHTML=pi.map(v=>`
+            <div class="vocab-grid-card" onclick="speakElement(this,'${escapeHtml(v.word).replace(/'/g,"\\'")}')">
+                <div class="vocab-grid-header">
+                    <div><span class="vocab-grid-word">${escapeHtml(v.word)}</span><span class="vocab-grid-phonetic">${escapeHtml(v.phonetic||'')}</span></div>
+                    <div class="vocab-grid-meta">
+                        ${getMasteryBadge(v.mastery)}
+                        <button class="action-btn" onclick="event.stopPropagation();deleteVocab('${v.word.toLowerCase()}')" style="margin-left:4px;background:transparent;border:none;cursor:pointer">🗑️</button>
+                    </div>
+                </div>
+                <div class="vocab-grid-meaning">${escapeHtml(v.meaning||'暂无中文释义')}</div>
+                ${v.meaningEn?`<div class="vocab-grid-meaning-en">EN: ${escapeHtml(v.meaningEn)}</div>`:''}
+                ${v.example?`<div class="vocab-grid-example" onclick="event.stopPropagation();speakElement(this,'${escapeHtml(v.example).replace(/'/g,"\\'")}')">
+                    <div class="en">🔊 ${escapeHtml(v.example)}</div>
+                    ${v.exampleZh?`<div class="zh">${escapeHtml(v.exampleZh)}</div>`:''}
+                </div>`:''}
+                <div class="vocab-grid-footer"><span>${v.addedDate}</span><span style="color:var(--accent-cyan)">🔊 点击朗读</span></div>
             </div>
-            <div class="vocab-grid-meaning">${escapeHtml(v.meaning||'暂无释义')}</div>
-            ${v.example?`<div class="vocab-grid-example" onclick="event.stopPropagation();speakElement(this,'${escapeHtml(v.example).replace(/'/g,"\\'")}')"><div class="en">🔊 ${escapeHtml(v.example)}</div>${v.exampleZh?`<div class="zh">${escapeHtml(v.exampleZh)}</div>`:''}</div>`:''}
-            <div class="vocab-grid-footer"><span>${v.addedDate}</span><span style="color:var(--accent-cyan)">🔊 点击朗读</span></div>
-        </div>
-    `).join('')}
+        `).join('');
+    }
     renderPagination('vocabPagination',tp,currentVocabPage,p=>{currentVocabPage=p;renderVocabGrid()});
 }
-function getMasteryBadge(m){const b={new:'<span class="mastery-badge new">🆕 新</span>',learning:'<span class="mastery-badge learning">📖 学习</span>',familiar:'<span class="mastery-badge familiar">💡 熟悉</span>',mastered:'<span class="mastery-badge mastered">✅ 掌握</span>'};return b[m]||b.new}
-function renderPagination(cid,tp,cp,opc){const c=document.getElementById(cid);if(tp<=1){c.innerHTML='';return}c.innerHTML=`<button ${cp===1?'disabled':''}>上一页</button><span class="page-info">${cp}/${tp}</span><button ${cp===tp?'disabled':''}>下一页</button>`;c.querySelector('button:first-child').onclick=()=>{if(cp>1)opc(cp-1)};c.querySelector('button:last-child').onclick=()=>{if(cp<tp)opc(cp+1)}}
+
+function getMasteryBadge(m){
+    const b={
+        new:'<span class="mastery-badge new">🆕 新</span>',
+        learning:'<span class="mastery-badge learning">📖 学习</span>',
+        familiar:'<span class="mastery-badge familiar">💡 熟悉</span>',
+        mastered:'<span class="mastery-badge mastered">✅ 掌握</span>'
+    };
+    return b[m]||b.new;
+}
+function renderPagination(cid,tp,cp,opc){
+    const c=document.getElementById(cid);
+    if(tp<=1){c.innerHTML='';return}
+    c.innerHTML=`<button ${cp===1?'disabled':''}>上一页</button><span class="page-info">${cp}/${tp}</span><button ${cp===tp?'disabled':''}>下一页</button>`;
+    c.querySelector('button:first-child').onclick=()=>{if(cp>1)opc(cp-1)};
+    c.querySelector('button:last-child').onclick=()=>{if(cp<tp)opc(cp+1)};
+}
 function filterVocab(){currentVocabPage=1;renderVocabGrid()}
 function deleteVocab(k){if(confirm('删除？')){const v=getVocabulary();delete v[k];saveVocabulary(v);renderVocabGrid();updateVocabCount();updateStats();showToast('已删除')}}
 
@@ -764,7 +999,12 @@ function filterExpressions(){currentExprPage=1;renderExpressionsGrid()}
 
 function renderMemoryPage(){
     const vocab=getVocabulary();const items=Object.values(vocab);
-    const counts={new:items.filter(v=>v.mastery==='new').length,learning:items.filter(v=>v.mastery==='learning').length,familiar:items.filter(v=>v.mastery==='familiar').length,mastered:items.filter(v=>v.mastery==='mastered').length};
+    const counts={
+        new:items.filter(v=>v.mastery==='new').length,
+        learning:items.filter(v=>v.mastery==='learning').length,
+        familiar:items.filter(v=>v.mastery==='familiar').length,
+        mastered:items.filter(v=>v.mastery==='mastered').length
+    };
     document.getElementById('memNewCount').textContent=counts.new;
     document.getElementById('memLearningCount').textContent=counts.learning;
     document.getElementById('memFamiliarCount').textContent=counts.familiar;
@@ -774,12 +1014,24 @@ function renderMemoryPage(){
     const nw=items.filter(v=>v.mastery==='new');
     const c=document.getElementById('memoryContent');
     if(reviewQueue.length>0){renderFlashcard()}
-    else{c.innerHTML=`<div class="start-review"><h2>🧠 开始记忆</h2><p>选择学习模式</p><div class="review-options"><div class="review-option" onclick="startReview('due')"><div class="num">${dfr.length}</div><div class="label">待复习</div></div><div class="review-option" onclick="startReview('new')"><div class="num">${nw.length}</div><div class="label">新词</div></div><div class="review-option" onclick="startReview('all')"><div class="num">${items.length}</div><div class="label">全部</div></div><div class="review-option" onclick="startReview('random20')"><div class="num">20</div><div class="label">随机</div></div></div></div>`}
+    else{
+        c.innerHTML=`<div class="start-review"><h2>🧠 开始记忆</h2><p>选择学习模式</p><div class="review-options">
+            <div class="review-option" onclick="startReview('due')"><div class="num">${dfr.length}</div><div class="label">待复习</div></div>
+            <div class="review-option" onclick="startReview('new')"><div class="num">${nw.length}</div><div class="label">新词</div></div>
+            <div class="review-option" onclick="startReview('all')"><div class="num">${items.length}</div><div class="label">全部</div></div>
+            <div class="review-option" onclick="startReview('random20')"><div class="num">20</div><div class="label">随机</div></div>
+        </div></div>`;
+    }
 }
 
 function startReview(mode){
     const vocab=getVocabulary();const items=Object.values(vocab);const today=new Date().toISOString().split('T')[0];
-    switch(mode){case'due':reviewQueue=items.filter(v=>v.nextReview<=today&&v.mastery!=='mastered');break;case'new':reviewQueue=items.filter(v=>v.mastery==='new');break;case'all':reviewQueue=[...items];break;case'random20':reviewQueue=shuffleArray([...items]).slice(0,20);break}
+    switch(mode){
+        case'due':reviewQueue=items.filter(v=>v.nextReview<=today&&v.mastery!=='mastered');break;
+        case'new':reviewQueue=items.filter(v=>v.mastery==='new');break;
+        case'all':reviewQueue=[...items];break;
+        case'random20':reviewQueue=shuffleArray([...items]).slice(0,20);break
+    }
     if(reviewQueue.length===0){showToast('没有可复习的单词');return}
     reviewQueue=shuffleArray(reviewQueue);currentCardIndex=0;reviewStats={again:0,hard:0,good:0,easy:0};isCardFlipped=false;renderFlashcard();
 }
@@ -788,7 +1040,14 @@ function shuffleArray(a){const arr=[...a];for(let i=arr.length-1;i>0;i--){const 
 function renderFlashcard(){
     const c=document.getElementById('memoryContent');
     if(currentCardIndex>=reviewQueue.length){
-        c.innerHTML=`<div class="review-complete"><div class="icon">🎉</div><h2>完成！</h2><p>本次复习结束</p><div class="review-summary"><div class="review-summary-item"><div class="num" style="color:var(--accent-red)">${reviewStats.again}</div><div class="label">忘记</div></div><div class="review-summary-item"><div class="num" style="color:var(--accent-orange)">${reviewStats.hard}</div><div class="label">困难</div></div><div class="review-summary-item"><div class="num" style="color:var(--accent-blue)">${reviewStats.good}</div><div class="label">记住</div></div><div class="review-summary-item"><div class="num" style="color:var(--accent-green)">${reviewStats.easy}</div><div class="label">简单</div></div></div><button class="btn btn-primary" onclick="resetReview()">继续学习</button></div>`;
+        c.innerHTML=`<div class="review-complete"><div class="icon">🎉</div><h2>完成！</h2><p>本次复习结束</p>
+        <div class="review-summary">
+            <div class="review-summary-item"><div class="num" style="color:var(--accent-red)">${reviewStats.again}</div><div class="label">忘记</div></div>
+            <div class="review-summary-item"><div class="num" style="color:var(--accent-orange)">${reviewStats.hard}</div><div class="label">困难</div></div>
+            <div class="review-summary-item"><div class="num" style="color:var(--accent-blue)">${reviewStats.good}</div><div class="label">记住</div></div>
+            <div class="review-summary-item"><div class="num" style="color:var(--accent-green)">${reviewStats.easy}</div><div class="label">简单</div></div>
+        </div>
+        <button class="btn btn-primary" onclick="resetReview()">继续学习</button></div>`;
         return;
     }
     const card=reviewQueue[currentCardIndex];
@@ -801,7 +1060,8 @@ function renderFlashcard(){
             <div class="flashcard-hint">点击单词朗读 · 点击卡片翻转</div>
         </div>
         <div class="flashcard-back">
-            <div class="flashcard-meaning">${escapeHtml(card.meaning||'暂无释义')}</div>
+            <div class="flashcard-meaning">${escapeHtml(card.meaning||'暂无中文释义')}</div>
+            ${card.meaningEn?`<div class="flashcard-meaning-en">EN: ${escapeHtml(card.meaningEn)}</div>`:''}
             ${card.example?`<div class="flashcard-example"><div class="en">${escapeHtml(card.example)}</div>${card.exampleZh?`<div class="zh">${escapeHtml(card.exampleZh)}</div>`:''}</div>`:''}
         </div>
         <button class="flashcard-speak" onclick="event.stopPropagation();speak('${escapeHtml(card.word).replace(/'/g,"\\'")}')">🔊 朗读</button>
@@ -819,7 +1079,18 @@ function rateCard(rating){
     if(vocab[k]){
         vocab[k].reviewCount++;vocab[k].lastReview=new Date().toISOString().split('T')[0];
         const today=new Date();let nr=new Date(today);
-        switch(rating){case'again':vocab[k].mastery='learning';nr.setMinutes(nr.getMinutes()+1);break;case'hard':vocab[k].mastery='learning';nr.setMinutes(nr.getMinutes()+10);break;case'good':if(vocab[k].mastery==='new')vocab[k].mastery='learning';else if(vocab[k].mastery==='learning')vocab[k].mastery='familiar';nr.setDate(nr.getDate()+1);break;case'easy':if(vocab[k].mastery==='new'||vocab[k].mastery==='learning')vocab[k].mastery='familiar';else if(vocab[k].mastery==='familiar')vocab[k].mastery='mastered';nr.setDate(nr.getDate()+4);break}
+        switch(rating){
+            case'again':vocab[k].mastery='learning';nr.setMinutes(nr.getMinutes()+1);break;
+            case'hard':vocab[k].mastery='learning';nr.setMinutes(nr.getMinutes()+10);break;
+            case'good':
+                if(vocab[k].mastery==='new')vocab[k].mastery='learning';
+                else if(vocab[k].mastery==='learning')vocab[k].mastery='familiar';
+                nr.setDate(nr.getDate()+1);break;
+            case'easy':
+                if(vocab[k].mastery==='new'||vocab[k].mastery==='learning')vocab[k].mastery='familiar';
+                else if(vocab[k].mastery==='familiar')vocab[k].mastery='mastered';
+                nr.setDate(nr.getDate()+4);break
+        }
         vocab[k].nextReview=nr.toISOString().split('T')[0];saveVocabulary(vocab);
     }
     reviewStats[rating]++;currentCardIndex++;isCardFlipped=false;renderFlashcard();renderMemoryPage();
@@ -831,8 +1102,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     syncVocabulary();syncExpressions();renderCalendar();updateStats();updateVocabCount();updateExprCount();loadRecord(selectedDate);renderWordCards();
 });
 document.addEventListener('keydown',e=>{
-    if(reviewQueue.length>0&&isCardFlipped){switch(e.key){case'1':rateCard('again');break;case'2':rateCard('hard');break;case'3':rateCard('good');break;case'4':rateCard('easy');break}}
-    else if(reviewQueue.length>0&&e.code==='Space'){e.preventDefault();flipCard()}
+    if(reviewQueue.length>0&&isCardFlipped){
+        switch(e.key){case'1':rateCard('again');break;case'2':rateCard('hard');break;case'3':rateCard('good');break;case'4':rateCard('easy');break}
+    } else if(reviewQueue.length>0&&e.code==='Space'){e.preventDefault();flipCard()}
 });
 </script>
 </body>
