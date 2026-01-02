@@ -7,309 +7,467 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-card: #1c2128;
-            --bg-hover: #262c36;
-            --text-primary: #e6edf3;
-            --text-secondary: #8b949e;
-            --text-muted: #6e7681;
-            --accent-green: #3fb950;
-            --accent-green-dim: rgba(63, 185, 80, 0.15);
-            --accent-blue: #58a6ff;
-            --accent-purple: #a371f7;
-            --accent-orange: #f0883e;
-            --accent-red: #f85149;
-            --accent-yellow: #d29922;
-            --accent-cyan: #39c5cf;
-            --accent-pink: #db61a2;
-            --border-color: #30363d;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            /* 🎨 极简白底配色系统 (保持不变) */
+            --bg-primary: #f8f9fb;      
+            --bg-card: #ffffff;         
+            --bg-input: #f3f4f6;        
+            --bg-hover: #f9fafb;        
+            
+            --text-primary: #111827;    
+            --text-secondary: #4b5563;  
+            --text-muted: #9ca3af;      
+            
+            --accent-green: #10b981;    
+            --accent-blue: #3b82f6;     
+            --accent-purple: #8b5cf6;   
+            --accent-orange: #f97316;   
+            --accent-red: #ef4444;      
+            --accent-cyan: #06b6d4;     
+            
+            --border-color: #e5e7eb;    
+            --radius-md: 12px;          
+            --radius-lg: 16px;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; line-height: 1.6; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at 20% 20%, rgba(63, 185, 80, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(88, 166, 255, 0.06) 0%, transparent 50%); pointer-events: none; z-index: -1; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 32px 20px; }
-        header { text-align: center; margin-bottom: 28px; }
-        header h1 { font-family: 'Crimson Pro', serif; font-size: 2.8rem; font-weight: 600; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
-        header p { color: var(--text-secondary); font-size: 1rem; font-weight: 300; }
 
-        /* ✅ 新增：顶部快捷跳转按钮 */
-        .quick-links { display:flex; justify-content:center; gap:10px; margin-top:14px; flex-wrap:wrap; }
-        .quick-link-btn{
-            padding: 9px 14px;
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        
+        body { 
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: var(--bg-primary); 
+            color: var(--text-primary); 
+            min-height: 100vh; 
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+        header { text-align: center; margin-bottom: 40px; }
+        header h1 { 
+            font-family: 'Crimson Pro', serif; 
+            font-size: 3rem; 
+            font-weight: 600; 
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        header p { color: var(--text-secondary); font-size: 1.05rem; font-weight: 400; }
+
+        .quick-links { display:flex; justify-content:center; gap:16px; margin-top:24px; flex-wrap:wrap; }
+        .quick-link-btn {
+            padding: 10px 20px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 50px;
             color: var(--text-primary);
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 500;
             display:flex; align-items:center; gap:8px;
             text-decoration:none;
+            box-shadow: var(--shadow-sm);
         }
-        .quick-link-btn:hover{ background: var(--bg-hover); border-color: var(--accent-cyan); transform: translateY(-1px); }
-        .quick-link-btn .hint{ color: var(--text-muted); font-size: 0.78rem; }
+        .quick-link-btn:hover { 
+            background: var(--bg-card); 
+            transform: translateY(-2px); 
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-blue);
+        }
+        .quick-link-btn .hint { color: var(--text-muted); font-size: 0.8rem; font-weight: normal; }
 
-        .nav-tabs { display: flex; justify-content: center; gap: 6px; margin-bottom: 28px; flex-wrap: wrap; }
-        .nav-tab { padding: 10px 20px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s ease; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
-        .nav-tab:hover { background: var(--bg-hover); color: var(--text-primary); }
-        .nav-tab.active { background: var(--accent-green); color: var(--bg-primary); border-color: var(--accent-green); font-weight: 500; }
-        .nav-tab .badge { background: rgba(0,0,0,0.2); padding: 2px 7px; border-radius: 8px; font-size: 0.75rem; }
+        .nav-tabs { 
+            display: flex; 
+            justify-content: center; 
+            gap: 8px; 
+            margin-bottom: 32px; 
+            background: rgba(229, 231, 235, 0.4); 
+            padding: 6px; 
+            border-radius: 16px; 
+            width: fit-content; 
+            margin-left: auto; 
+            margin-right: auto;
+            backdrop-filter: blur(8px);
+        }
+        .nav-tab { 
+            padding: 8px 24px; 
+            border-radius: 12px; 
+            color: var(--text-secondary); 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            font-size: 0.95rem; 
+            font-weight: 500;
+            border: none;
+            background: transparent;
+        }
+        .nav-tab:hover { color: var(--text-primary); }
+        .nav-tab.active { 
+            background: var(--bg-card); 
+            color: var(--accent-blue); 
+            box-shadow: var(--shadow-sm);
+            font-weight: 600;
+        }
+        .nav-tab .badge { 
+            background: var(--bg-input); 
+            color: var(--text-secondary); 
+            padding: 2px 8px; 
+            border-radius: 10px; 
+            font-size: 0.75rem; 
+            margin-left: 6px;
+        }
+
         .page { display: none; animation: fadeIn 0.4s ease-out; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 28px; }
-        .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; transition: all 0.3s ease; }
-        .stat-card:hover { transform: translateY(-2px); border-color: var(--accent-green); }
-        .stat-card .label { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 3px; }
-        .stat-card .value { font-size: 1.6rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-        .stat-card.streak .value { color: var(--accent-orange); }
-        .stat-card.total .value { color: var(--accent-green); }
-        .stat-card.words .value { color: var(--accent-blue); }
-        .stat-card.expressions .value { color: var(--accent-cyan); }
-        .stat-card.mastered .value { color: var(--accent-yellow); }
-        .main-content { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
-        @media (max-width: 1024px) { .main-content { grid-template-columns: 1fr; } }
-        .calendar-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px; height: fit-content; position: sticky; top: 20px; }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .calendar-title { font-size: 1.05rem; font-weight: 500; }
-        .calendar-nav { display: flex; gap: 5px; }
-        .calendar-nav button { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); width: 30px; height: 30px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; font-size: 0.95rem; }
-        .calendar-nav button:hover { background: var(--bg-hover); border-color: var(--accent-green); }
-        .calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
-        .weekday { text-align: center; font-size: 0.65rem; color: var(--text-muted); padding: 5px 0; font-weight: 500; }
-        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-        .day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s ease; position: relative; border: 2px solid transparent; }
-        .day:hover:not(.empty) { background: var(--bg-hover); }
-        .day.today { border-color: var(--accent-blue); font-weight: 600; }
-        .day.selected { background: var(--accent-green); color: var(--bg-primary); font-weight: 600; }
-        .day.has-record::after { content: ''; position: absolute; bottom: 2px; width: 4px; height: 4px; background: var(--accent-green); border-radius: 50%; }
-        .day.selected.has-record::after { background: var(--bg-primary); }
-        .day.other-month { color: var(--text-muted); opacity: 0.5; }
-        .record-section { display: flex; flex-direction: column; gap: 18px; }
-        .record-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; }
-        .record-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .record-card h3 .icon { font-size: 1.05rem; }
-        .record-card h3 .auto-badge { font-size: 0.6rem; background: var(--accent-cyan); color: var(--bg-primary); padding: 2px 6px; border-radius: 6px; font-weight: 500; }
-        .conversation-input {
-    width: 100%;
-    min-height: 260px;     /* 原来是 130px */
-    max-height: 70vh;      /* 防止无限撑爆屏幕 */
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 14px;
-    color: var(--text-primary);
-    font-family: inherit;
-    font-size: 0.9rem;
-    resize: vertical;      /* 允许你手动拖大 */
-    transition: border-color 0.2s ease;
-    line-height: 1.7;
-}
-        .conversation-input:focus { outline: none; border-color: var(--accent-green); }
-        .conversation-input::placeholder { color: var(--text-muted); }
-        .extract-section { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .extract-btn { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); cursor: pointer; transition: all 0.2s ease; font-size: 0.78rem; display: flex; align-items: center; gap: 5px; }
-        .extract-btn:hover { border-color: var(--accent-cyan); background: rgba(57, 197, 207, 0.1); }
-        .extract-btn.extracting { opacity: 0.7; pointer-events: none; }
-        
-        /* 新版生词卡片样式 */
-        .word-cards { display: flex; flex-direction: column; gap: 12px; }
-        .word-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; transition: all 0.2s ease; animation: slideIn 0.3s ease-out; }
-        .word-card:hover { border-color: var(--accent-blue); }
-        .word-card.loading { opacity: 0.7; }
-        .word-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .word-card-main { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-        .word-card-word { font-family: 'Crimson Pro', serif; font-size: 1.25rem; color: var(--accent-blue); cursor: pointer; transition: color 0.2s; }
-        .word-card-word:hover { color: var(--accent-cyan); }
-        .word-card-phonetic { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent-purple); }
-        .word-card-actions { display: flex; gap: 6px; }
-        .word-card-actions button { background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; border-radius: 4px; font-size: 0.9rem; transition: all 0.2s; }
-        .word-card-actions button:hover { color: var(--accent-red); background: rgba(248, 81, 73, 0.1); }
-        .word-card-actions button.refresh:hover { color: var(--accent-cyan); background: rgba(57, 197, 207, 0.1); }
-        .word-card-meaning { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 10px; padding: 8px 10px; background: rgba(88, 166, 255, 0.08); border-radius: 6px; border-left: 3px solid var(--accent-blue); }
-        /* ✅ 新增：英文释义小字显示 */
-        .word-card-meaning-en {
-            margin-top: 6px;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            line-height: 1.5;
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-bottom: 32px; }
+        .stat-card { 
+            background: var(--bg-card); 
+            border-radius: var(--radius-lg); 
+            padding: 20px 24px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.3s ease; 
+            border: 1px solid transparent;
         }
-        .word-card-example { font-size: 0.85rem; padding: 10px 12px; background: rgba(163, 113, 247, 0.08); border-radius: 6px; border-left: 3px solid var(--accent-purple); cursor: pointer; transition: all 0.2s; }
-        .word-card-example:hover { background: rgba(163, 113, 247, 0.12); }
-        .word-card-example.speaking { border-left-color: var(--accent-cyan); background: rgba(57, 197, 207, 0.1); }
-        .word-card-example .en { font-family: 'Crimson Pro', serif; font-size: 0.95rem; color: var(--text-primary); font-style: italic; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-        .word-card-example .en .speak-icon { font-size: 0.8rem; opacity: 0.5; }
-        .word-card-example .zh { color: var(--text-secondary); font-size: 0.82rem; }
-        .word-card-input { display: flex; flex-direction: column; gap: 8px; }
-        .word-card-input input, .word-card-input textarea { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px 10px; color: var(--text-primary); font-family: inherit; font-size: 0.85rem; transition: border-color 0.2s; }
-        .word-card-input input:focus, .word-card-input textarea:focus { outline: none; border-color: var(--accent-blue); }
-        .word-card-input .row { display: flex; gap: 8px; }
-        .word-card-input .row input:first-child { flex: 1; font-family: 'Crimson Pro', serif; font-size: 1rem; }
-        .word-card-input .row input:last-child { width: 120px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
-        .word-card-input textarea { min-height: 50px; resize: vertical; }
-        .word-card-status { font-size: 0.75rem; color: var(--accent-cyan); display: flex; align-items: center; gap: 5px; margin-top: 6px; }
-        .word-card-status.error { color: var(--accent-red); }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .stat-card .label { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; font-weight: 500; }
+        .stat-card .value { font-size: 2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; line-height: 1; }
         
-        .add-btn { display: flex; align-items: center; justify-content: center; gap: 5px; background: transparent; border: 2px dashed var(--border-color); border-radius: 8px; padding: 10px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s ease; font-size: 0.8rem; margin-top: 8px; }
-        .add-btn:hover { border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-dim); }
+        .stat-card.streak .value { color: var(--accent-orange); }
+        .stat-card.total .value { color: var(--text-primary); }
+        .stat-card.words .value { color: var(--accent-blue); }
+        .stat-card.expressions .value { color: var(--accent-purple); }
+        .stat-card.mastered .value { color: var(--accent-green); }
+
+        .main-content { display: grid; grid-template-columns: 340px 1fr; gap: 32px; }
+        @media (max-width: 1024px) { .main-content { grid-template-columns: 1fr; } }
+
+        .calendar-section { 
+            background: var(--bg-card); 
+            border-radius: var(--radius-lg); 
+            padding: 24px; 
+            box-shadow: var(--shadow-md); 
+            height: fit-content; 
+            position: sticky; 
+            top: 24px; 
+        }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .calendar-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+        .calendar-nav button { 
+            background: var(--bg-input); 
+            border: none; 
+            color: var(--text-secondary); 
+            width: 32px; height: 32px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+        }
+        .calendar-nav button:hover { background: var(--border-color); color: var(--text-primary); }
+        .calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 12px; }
+        .weekday { text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .day { 
+            aspect-ratio: 1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 10px; 
+            font-size: 0.85rem; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            position: relative; 
+            color: var(--text-secondary);
+        }
+        .day:hover:not(.empty) { background: var(--bg-input); color: var(--text-primary); }
+        .day.today { color: var(--accent-blue); font-weight: 700; background: rgba(59, 130, 246, 0.1); }
+        .day.selected { background: var(--accent-blue); color: white; font-weight: 600; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); }
+        .day.has-record::after { content: ''; position: absolute; bottom: 6px; width: 4px; height: 4px; background: var(--accent-green); border-radius: 50%; }
+        .day.selected.has-record::after { background: white; }
+        .day.other-month { color: #d1d5db; }
+
+        .record-section { display: flex; flex-direction: column; gap: 24px; }
+        .record-card { 
+            background: var(--bg-card); 
+            border-radius: var(--radius-lg); 
+            padding: 28px; 
+            box-shadow: var(--shadow-md); 
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .record-card h3 { 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            margin-bottom: 16px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            color: var(--text-primary);
+        }
+        .auto-badge { 
+            font-size: 0.65rem; 
+            background: rgba(6, 182, 212, 0.1); 
+            color: var(--accent-cyan); 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px;
+        }
+
+        .conversation-input {
+            width: 100%;
+            min-height: 200px;
+            background: var(--bg-input);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            transition: all 0.2s ease;
+            line-height: 1.7;
+        }
+        .conversation-input:focus { background: white; border-color: var(--accent-blue); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+        .conversation-input::placeholder { color: var(--text-muted); }
+
+        .extract-section { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+        .extract-btn { 
+            padding: 10px 18px; 
+            border-radius: 10px; 
+            border: none; 
+            background: white; 
+            color: var(--text-secondary); 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            font-size: 0.85rem; 
+            font-weight: 500;
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+        .extract-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
+        .word-cards { display: flex; flex-direction: column; gap: 16px; }
+        .word-card { 
+            background: white; 
+            border: 1px solid var(--border-color); 
+            border-radius: var(--radius-md); 
+            padding: 20px; 
+            transition: all 0.2s ease; 
+            position: relative;
+        }
+        .word-card:hover { border-color: var(--accent-blue); box-shadow: var(--shadow-md); }
+        .word-card.loading { opacity: 0.6; pointer-events: none; }
         
-        .expression-card { background: linear-gradient(135deg, rgba(57, 197, 207, 0.08) 0%, rgba(163, 113, 247, 0.08) 100%); border: 1px solid rgba(57, 197, 207, 0.25); }
-        .expression-list { display: flex; flex-direction: column; gap: 8px; }
-        .vocab-item { display: flex; gap: 8px; align-items: flex-start; }
-        .sentence-input-group { display: flex; flex-direction: column; gap: 5px; flex: 1; }
-        .sentence-input-group input { width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 9px 11px; color: var(--text-primary); font-family: inherit; font-size: 0.85rem; transition: border-color 0.2s ease; }
-        .sentence-input-group input:focus { outline: none; border-color: var(--accent-purple); }
-        .sentence-input-group input.en { font-family: 'Crimson Pro', serif; font-size: 0.95rem; }
-        .vocab-item .delete-btn { background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 6px; border-radius: 6px; transition: all 0.2s ease; font-size: 0.95rem; }
-        .vocab-item .delete-btn:hover { color: var(--accent-red); background: rgba(248, 81, 73, 0.1); }
+        .word-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .word-card-word { 
+            font-family: 'Crimson Pro', serif; 
+            font-size: 1.5rem; 
+            color: var(--text-primary); 
+            font-weight: 600;
+            cursor: pointer; 
+        }
+        .word-card-word:hover { color: var(--accent-blue); }
+        .word-card-phonetic { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--text-muted); margin-left: 10px; background: var(--bg-input); padding: 2px 6px; border-radius: 4px; }
         
-        .expression-item { background: var(--bg-secondary); border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: all 0.2s ease; position: relative; }
-        .expression-item:hover { background: var(--bg-hover); transform: translateX(3px); }
-        .expression-item.speaking { border-left: 3px solid var(--accent-cyan); }
-        .expression-item .en { font-family: 'Crimson Pro', serif; font-size: 0.95rem; color: var(--accent-cyan); margin-bottom: 3px; }
-        .expression-item .zh { font-size: 0.82rem; color: var(--text-secondary); }
+        .word-card-actions button { background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 6px; border-radius: 6px; transition: 0.2s; }
+        .word-card-actions button:hover { background: var(--bg-input); color: var(--accent-red); }
+        .word-card-actions button.refresh:hover { color: var(--accent-blue); }
+
+        .word-card-meaning { 
+            font-size: 0.95rem; 
+            color: var(--text-secondary); 
+            margin-bottom: 12px; 
+            padding-left: 12px; 
+            border-left: 3px solid var(--accent-blue); 
+            line-height: 1.6;
+        }
+        .word-card-meaning-en { margin-top: 4px; font-size: 0.85rem; color: var(--text-muted); }
         
-        .save-section { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
-        .btn { padding: 10px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; }
-        .btn-primary { background: var(--accent-green); border: none; color: var(--bg-primary); }
-        .btn-primary:hover { background: #4ac95f; transform: translateY(-1px); }
-        .btn-secondary { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); }
-        .btn-secondary:hover { background: var(--bg-hover); }
+        .word-card-input { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border-color); }
+        .word-card-input input, .word-card-input textarea { 
+            background: var(--bg-input); 
+            border: 1px solid transparent; 
+            border-radius: 8px; 
+            padding: 10px 12px; 
+            color: var(--text-primary); 
+            font-family: inherit; 
+            font-size: 0.9rem; 
+            transition: 0.2s; 
+        }
+        .word-card-input input:focus, .word-card-input textarea:focus { background: white; border-color: var(--accent-blue); box-shadow: 0 0 0 2px rgba(59,130,246,0.1); }
+        .word-card-input .row { display: flex; gap: 10px; }
+        .word-card-input .row input:first-child { flex: 1; font-family: 'Crimson Pro', serif; font-weight: 500; font-size: 1.1rem; }
+        .word-card-input .row input:last-child { width: 140px; font-family: 'JetBrains Mono', monospace; }
         
-        /* 生词库表格 - 新版 */
-        .vocab-page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
-        .vocab-page-header h2 { font-size: 1.2rem; font-weight: 500; }
-        .vocab-controls { display: flex; gap: 8px; flex-wrap: wrap; }
-        .search-box { position: relative; }
-        .search-box input { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 9px 11px 9px 34px; color: var(--text-primary); font-size: 0.85rem; width: 180px; }
-        .search-box input:focus { outline: none; border-color: var(--accent-blue); }
-        .search-box::before { content: '🔍'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; }
-        .filter-select { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 9px 11px; color: var(--text-primary); font-size: 0.85rem; cursor: pointer; }
+        .add-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            background: white; border: 2px dashed var(--border-color); 
+            border-radius: var(--radius-md); padding: 14px; 
+            color: var(--text-secondary); cursor: pointer; 
+            transition: all 0.2s ease; font-weight: 500; margin-top: 16px;
+        }
+        .add-btn:hover { border-color: var(--accent-green); color: var(--accent-green); background: rgba(16, 185, 129, 0.05); }
+
+        .expression-list { display: flex; flex-direction: column; gap: 12px; }
+        .vocab-item { display: flex; gap: 10px; align-items: flex-start; }
+        .sentence-input-group { display: flex; flex-direction: column; gap: 8px; flex: 1; background: var(--bg-input); padding: 12px; border-radius: 10px; }
+        .sentence-input-group input { 
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(0,0,0,0.05); 
+            padding: 4px 0; color: var(--text-primary); font-size: 0.95rem; 
+        }
+        .sentence-input-group input:focus { border-bottom-color: var(--accent-purple); }
+        .sentence-input-group input.en { font-family: 'Crimson Pro', serif; font-size: 1.05rem; color: var(--text-primary); font-weight: 500; }
+        .vocab-item .delete-btn { opacity: 0.5; cursor: pointer; border: none; background: transparent; font-size: 1.2rem; }
+        .vocab-item .delete-btn:hover { opacity: 1; color: var(--accent-red); }
+
+        .expression-item { 
+            background: white; border: 1px solid var(--border-color); 
+            border-radius: 10px; padding: 14px 18px; 
+            cursor: pointer; transition: all 0.2s ease; 
+            box-shadow: var(--shadow-sm); 
+        }
+        .expression-item:hover { transform: translateX(4px); border-color: var(--accent-cyan); box-shadow: var(--shadow-md); }
+        .expression-item .en { font-family: 'Crimson Pro', serif; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 4px; font-weight: 500; }
+        .expression-item .zh { font-size: 0.9rem; color: var(--text-secondary); }
+
+        .save-section { display: flex; gap: 12px; justify-content: flex-end; margin-top: 12px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+        .btn { padding: 12px 24px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; border: none; }
+        .btn-primary { background: var(--text-primary); color: white; box-shadow: var(--shadow-md); }
+        .btn-primary:hover { background: black; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-secondary { background: white; border: 1px solid var(--border-color); color: var(--text-secondary); }
+        .btn-secondary:hover { background: var(--bg-input); color: var(--text-primary); }
+
+        .vocab-page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+        .vocab-page-header h2 { font-size: 1.5rem; color: var(--text-primary); }
+        .search-box input { 
+            background: white; border: 1px solid var(--border-color); 
+            border-radius: 50px; padding: 10px 20px 10px 40px; 
+            color: var(--text-primary); width: 220px; box-shadow: var(--shadow-sm); 
+            transition: 0.2s;
+        }
+        .search-box input:focus { width: 260px; border-color: var(--accent-blue); box-shadow: var(--shadow-md); }
+        .search-box::before { content: '🔍'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; opacity: 0.5; z-index: 2; }
+        .filter-select { background: white; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 16px; color: var(--text-primary); cursor: pointer; box-shadow: var(--shadow-sm); }
+
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .vocab-grid-card { 
+            background: white; border-radius: var(--radius-lg); 
+            padding: 24px; transition: all 0.3s ease; 
+            cursor: pointer; box-shadow: var(--shadow-md);
+            border: 1px solid transparent;
+        }
+        .vocab-grid-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .vocab-grid-word { font-family: 'Crimson Pro', serif; font-size: 1.6rem; color: var(--text-primary); font-weight: 600; }
+        .vocab-grid-phonetic { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-muted); margin-left: 8px; background: var(--bg-input); padding: 2px 6px; border-radius: 4px; }
+        .vocab-grid-meaning { font-size: 1rem; color: var(--text-secondary); margin: 12px 0 6px 0; }
+        .vocab-grid-example { 
+            font-size: 0.9rem; color: var(--text-secondary); 
+            padding: 12px; background: var(--bg-input); 
+            border-radius: 8px; margin-top: 12px;
+            font-style: italic;
+        }
+        .vocab-grid-footer { display: flex; justify-content: space-between; margin-top: 16px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--bg-input); padding-top: 12px; }
+
+        .mastery-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .mastery-badge.new { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); }
+        .mastery-badge.learning { background: rgba(249, 115, 22, 0.1); color: var(--accent-orange); }
+        .mastery-badge.familiar { background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); }
+        .mastery-badge.mastered { background: rgba(16, 185, 129, 0.1); color: var(--accent-green); }
+
+        .pagination button { background: white; border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .pagination button:hover:not(:disabled) { background: var(--bg-input); }
+
+        .memory-mode-container { max-width: 700px; margin: 0 auto; }
+        .memory-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+        .memory-stat { background: white; border-radius: 16px; padding: 16px; text-align: center; box-shadow: var(--shadow-sm); }
+        .memory-stat .num { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
         
-        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
-        .vocab-grid-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; transition: all 0.2s ease; cursor: pointer; }
-        .vocab-grid-card:hover { border-color: var(--accent-blue); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(88, 166, 255, 0.1); }
-        .vocab-grid-card.speaking { border-color: var(--accent-cyan); }
-        .vocab-grid-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .vocab-grid-word { font-family: 'Crimson Pro', serif; font-size: 1.3rem; color: var(--accent-blue); }
-        .vocab-grid-phonetic { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent-purple); margin-left: 8px; }
-        .vocab-grid-meta { display: flex; gap: 6px; align-items: center; }
-        .vocab-grid-meaning { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 6px; }
-        .vocab-grid-meaning-en { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
-        .vocab-grid-example { font-size: 0.82rem; color: var(--text-secondary); padding: 8px 10px; background: var(--bg-secondary); border-radius: 6px; border-left: 2px solid var(--accent-purple); }
-        .vocab-grid-example .en { font-family: 'Crimson Pro', serif; font-style: italic; margin-bottom: 3px; color: var(--text-primary); }
-        .vocab-grid-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 0.75rem; color: var(--text-muted); }
-        
-        .mastery-badge { display: inline-flex; align-items: center; gap: 3px; padding: 3px 7px; border-radius: 6px; font-size: 0.68rem; font-weight: 500; }
-        .mastery-badge.new { background: rgba(88, 166, 255, 0.15); color: var(--accent-blue); }
-        .mastery-badge.learning { background: rgba(240, 136, 62, 0.15); color: var(--accent-orange); }
-        .mastery-badge.familiar { background: rgba(163, 113, 247, 0.15); color: var(--accent-purple); }
-        .mastery-badge.mastered { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); }
-        
-        .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 20px; }
-        .pagination button { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 7px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
-        .pagination button:hover:not(:disabled) { background: var(--bg-hover); border-color: var(--accent-green); }
-        .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
-        .pagination .page-info { color: var(--text-muted); font-size: 0.8rem; }
-        
-        .expression-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
-        .expression-card-item { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; cursor: pointer; transition: all 0.2s ease; }
-        .expression-card-item:hover { border-color: var(--accent-cyan); transform: translateY(-2px); }
-        .expression-card-item.speaking { border-color: var(--accent-cyan); box-shadow: 0 0 12px rgba(57, 197, 207, 0.15); }
-        .expression-card-item .en { font-family: 'Crimson Pro', serif; font-size: 1.05rem; color: var(--text-primary); margin-bottom: 6px; line-height: 1.5; }
-        .expression-card-item .zh { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 8px; }
-        .expression-card-item .meta { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); }
-        .expression-card-item .play-hint { color: var(--accent-cyan); }
-        
-        /* 记忆模式 */
-        .memory-mode-container { max-width: 650px; margin: 0 auto; }
-        .memory-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
-        .memory-stat { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; text-align: center; }
-        .memory-stat .num { font-size: 1.4rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-        .memory-stat .label { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
-        .memory-stat.new .num { color: var(--accent-blue); }
-        .memory-stat.learning .num { color: var(--accent-orange); }
-        .memory-stat.familiar .num { color: var(--accent-purple); }
-        .memory-stat.mastered .num { color: var(--accent-green); }
-        
-        .flashcard-container { perspective: 1000px; margin-bottom: 24px; }
-        .flashcard { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; min-height: 320px; padding: 36px; cursor: pointer; transition: transform 0.6s, box-shadow 0.3s; transform-style: preserve-3d; position: relative; }
-        .flashcard:hover { box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3); }
+        .flashcard-container { perspective: 1000px; margin-bottom: 32px; }
+        .flashcard { 
+            background: white; 
+            border-radius: 24px; 
+            min-height: 400px; 
+            padding: 40px; 
+            cursor: pointer; 
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s; 
+            transform-style: preserve-3d; 
+            position: relative; 
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+        .flashcard:hover { box-shadow: var(--shadow-hover); }
         .flashcard.flipped { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; backface-visibility: hidden; padding: 36px; left: 0; top: 0; }
-        .flashcard-back { transform: rotateY(180deg); }
-        .flashcard-word { font-family: 'Crimson Pro', serif; font-size: 2.8rem; color: var(--accent-blue); margin-bottom: 8px; text-align: center; cursor: pointer; }
-        .flashcard-word:hover { color: var(--accent-cyan); }
-        .flashcard-phonetic { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--accent-purple); margin-bottom: 12px; }
-        .flashcard-hint { font-size: 0.85rem; color: var(--text-muted); }
-        .flashcard-meaning { font-size: 1.3rem; color: var(--text-primary); text-align: center; margin-bottom: 10px; }
-        .flashcard-meaning-en { font-size: 0.82rem; color: var(--text-muted); text-align:center; max-width: 90%; line-height:1.5; margin-bottom: 12px; }
-        .flashcard-example { font-size: 0.95rem; text-align: center; max-width: 90%; }
-        .flashcard-example .en { font-family: 'Crimson Pro', serif; font-style: italic; color: var(--text-primary); margin-bottom: 4px; }
-        .flashcard-example .zh { color: var(--text-secondary); font-size: 0.88rem; }
-        .flashcard-progress { position: absolute; top: 14px; right: 18px; font-size: 0.8rem; color: var(--text-muted); }
-        .flashcard-mastery { position: absolute; top: 14px; left: 18px; }
-        .flashcard-speak { position: absolute; bottom: 14px; right: 18px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 10px; color: var(--text-secondary); cursor: pointer; font-size: 0.78rem; }
-        .flashcard-speak:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+        .flashcard-front, .flashcard-back { 
+            position: absolute; width: 100%; height: 100%; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            backface-visibility: hidden; padding: 40px; left: 0; top: 0; 
+        }
+        .flashcard-back { transform: rotateY(180deg); background: white; border-radius: 24px; }
         
-        .memory-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .memory-btn { padding: 12px; border-radius: 10px; border: none; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-        .memory-btn:hover { transform: translateY(-2px); }
-        .memory-btn .label { font-size: 0.85rem; font-weight: 500; }
-        .memory-btn .desc { font-size: 0.65rem; opacity: 0.8; }
-        .memory-btn.again { background: var(--accent-red); color: white; }
-        .memory-btn.hard { background: var(--accent-orange); color: white; }
-        .memory-btn.good { background: var(--accent-blue); color: white; }
-        .memory-btn.easy { background: var(--accent-green); color: var(--bg-primary); }
+        .flashcard-word { font-family: 'Crimson Pro', serif; font-size: 3.5rem; color: var(--text-primary); margin-bottom: 12px; font-weight: 600; }
+        .flashcard-phonetic { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: var(--text-secondary); background: var(--bg-input); padding: 4px 12px; border-radius: 20px; }
+        .flashcard-hint { margin-top: 32px; font-size: 0.9rem; color: var(--text-muted); }
         
-        .start-review { text-align: center; padding: 50px 20px; }
-        .start-review h2 { font-size: 1.4rem; margin-bottom: 12px; }
-        .start-review p { color: var(--text-secondary); margin-bottom: 24px; }
-        .review-options { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-        .review-option { background: var(--bg-card); border: 2px solid var(--border-color); border-radius: 12px; padding: 16px 22px; cursor: pointer; transition: all 0.2s ease; text-align: center; min-width: 110px; }
-        .review-option:hover { border-color: var(--accent-green); transform: translateY(-2px); }
-        .review-option .num { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--accent-green); }
-        .review-option .label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; }
+        .flashcard-meaning { font-size: 1.6rem; color: var(--text-primary); text-align: center; margin-bottom: 20px; font-weight: 500; }
+        .flashcard-example { background: var(--bg-input); padding: 20px; border-radius: 12px; text-align: center; width: 100%; }
         
-        .review-complete { text-align: center; padding: 50px 20px; }
-        .review-complete .icon { font-size: 3rem; margin-bottom: 16px; }
-        .review-complete h2 { font-size: 1.4rem; margin-bottom: 12px; color: var(--accent-green); }
-        .review-complete p { color: var(--text-secondary); margin-bottom: 20px; }
-        .review-summary { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
-        .review-summary-item { text-align: center; }
-        .review-summary-item .num { font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-        .review-summary-item .label { font-size: 0.72rem; color: var(--text-muted); }
-        
-        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
-        .empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5; }
-        .empty-state p { font-size: 0.88rem; }
-        
-        .toast { position: fixed; bottom: 24px; right: 24px; background: var(--bg-card); border: 1px solid var(--accent-green); border-radius: 10px; padding: 12px 18px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 8px; transform: translateY(100px); opacity: 0; transition: all 0.3s ease; z-index: 1000; }
+        .memory-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .memory-btn { 
+            padding: 16px; border-radius: 16px; border: none; 
+            cursor: pointer; transition: all 0.2s ease; 
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            background: white; box-shadow: var(--shadow-md); color: var(--text-primary);
+        }
+        .memory-btn:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .memory-btn.again:hover { background: #fee2e2; color: var(--accent-red); }
+        .memory-btn.hard:hover { background: #ffedd5; color: var(--accent-orange); }
+        .memory-btn.good:hover { background: #dbeafe; color: var(--accent-blue); }
+        .memory-btn.easy:hover { background: #d1fae5; color: var(--accent-green); }
+
+        .start-review { text-align: center; padding: 60px 20px; background: white; border-radius: 24px; box-shadow: var(--shadow-md); }
+        .review-options { display: flex; justify-content: center; gap: 20px; margin-top: 32px; }
+        .review-option { 
+            background: var(--bg-input); border-radius: 16px; padding: 20px 32px; 
+            cursor: pointer; transition: 0.2s; min-width: 140px; 
+        }
+        .review-option:hover { background: white; box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+        .review-option .num { font-size: 2.2rem; font-weight: 700; color: var(--text-primary); }
+
+        .toast { 
+            position: fixed; bottom: 32px; right: 32px; 
+            background: white; color: var(--text-primary);
+            border-radius: 12px; padding: 16px 24px; 
+            box-shadow: var(--shadow-lg); 
+            display: flex; align-items: center; gap: 12px; 
+            transform: translateY(100px); opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            z-index: 1000; font-weight: 500;
+            border: 1px solid var(--border-color);
+        }
         .toast.show { transform: translateY(0); opacity: 1; }
-        .toast .icon { color: var(--accent-green); font-size: 1rem; }
         
-        .speech-control { position: fixed; bottom: 24px; left: 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); z-index: 100; }
-        .speech-control label { font-size: 0.78rem; color: var(--text-secondary); }
-        .speech-control input[type="range"] { width: 80px; accent-color: var(--accent-cyan); }
-        .speech-control .speed-value { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--accent-cyan); min-width: 32px; }
-        
+        .speech-control { 
+            position: fixed; bottom: 32px; left: 32px; 
+            background: white; border-radius: 50px; 
+            padding: 12px 20px; display: flex; align-items: center; gap: 12px; 
+            box-shadow: var(--shadow-lg); z-index: 100; 
+            border: 1px solid var(--border-color);
+        }
+
         @media (max-width: 768px) {
-            .container { padding: 16px 12px; }
-            header h1 { font-size: 1.8rem; }
+            .container { padding: 20px 16px; }
+            header h1 { font-size: 2rem; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .calendar-section { position: static; }
-            .record-card { padding: 14px; }
-            .word-card-input .row { flex-direction: column; }
-            .word-card-input .row input:last-child { width: 100%; }
             .vocab-grid { grid-template-columns: 1fr; }
             .memory-stats { grid-template-columns: repeat(2, 1fr); }
             .memory-buttons { grid-template-columns: repeat(2, 1fr); }
-            .flashcard-word { font-size: 2rem; }
-            .expression-grid { grid-template-columns: 1fr; }
-            .speech-control { left: 12px; bottom: 12px; }
         }
     </style>
 </head>
@@ -319,7 +477,6 @@
             <h1>Daily English Journal</h1>
             <p>每天30分钟，记录与AI的英语对话</p>
 
-            <!-- ✅ 新增：ChatGPT & YouTube 快捷入口 -->
             <div class="quick-links">
                 <a class="quick-link-btn" href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">
                     🤖 ChatGPT <span class="hint">打开练口语</span>
@@ -360,7 +517,7 @@
 
                 <div class="record-section">
                     <div class="record-card">
-                        <h3><span class="icon">💬</span> 今日对话内容 <span class="auto-badge">智能提取</span></h3>
+                        <h3><span>💬</span> 今日对话内容 <span class="auto-badge">智能提取</span></h3>
                         <textarea class="conversation-input" id="conversationInput" placeholder="粘贴今天和ChatGPT的对话内容...&#10;&#10;点击「提取生词」自动获取：&#10;• 单词、音标、释义（中文+英文）、例句（英文+中文）"></textarea>
                         <div class="extract-section">
                             <button class="extract-btn" onclick="extractVocabulary()" id="extractVocabBtn"><span>📖</span> 提取生词（自动查词典+中文翻译）</button>
@@ -369,13 +526,13 @@
                     </div>
 
                     <div class="record-card">
-                        <h3><span class="icon">📖</span> 生词记录 <span class="auto-badge">含音标+中英释义+例句</span></h3>
+                        <h3><span>📖</span> 生词记录 <span class="auto-badge">含音标+中英释义+例句</span></h3>
                         <div class="word-cards" id="wordCards"></div>
                         <button class="add-btn" onclick="addWordCard()"><span>+</span> 手动添加生词</button>
                     </div>
 
                     <div class="record-card expression-card">
-                        <h3><span class="icon">💬</span> 今日表达 <span class="auto-badge">点击朗读</span></h3>
+                        <h3><span>💬</span> 今日表达 <span class="auto-badge">点击朗读</span></h3>
                         <div class="expression-list" id="expressionsList">
                             <div class="vocab-item">
                                 <div class="sentence-input-group">
@@ -390,7 +547,7 @@
 
                     <div class="save-section">
                         <button class="btn btn-secondary" onclick="clearForm()">清空</button>
-                        <button class="btn btn-primary" onclick="saveRecord()"><span>💾</span> 保存</button>
+                        <button class="btn btn-primary" onclick="saveRecord()"><span>💾</span> 保存记录</button>
                     </div>
 
                     <div id="historyPreview"></div>
@@ -401,7 +558,7 @@
         <div class="page" id="vocabularyPage">
             <div class="vocab-page-header">
                 <h2>📚 我的生词库</h2>
-                <div class="vocab-controls">
+                <div class="vocab-controls" style="display:flex;gap:12px">
                     <div class="search-box"><input type="text" id="vocabSearch" placeholder="搜索..." oninput="filterVocab()"></div>
                     <select class="filter-select" id="masteryFilter" onchange="filterVocab()">
                         <option value="all">全部</option><option value="new">🆕 新词</option><option value="learning">📖 学习中</option><option value="familiar">💡 熟悉</option><option value="mastered">✅ 已掌握</option>
@@ -414,7 +571,7 @@
 
         <div class="page" id="expressionsPage">
             <div class="vocab-page-header">
-                <h2>💬 今日表达库 <span style="font-size:0.8rem;color:var(--text-muted);font-weight:400">点击朗读</span></h2>
+                <h2>💬 今日表达库 <span style="font-size:0.9rem;color:var(--text-muted);font-weight:400;margin-left:8px">点击卡片朗读</span></h2>
                 <div class="vocab-controls"><div class="search-box"><input type="text" id="exprSearch" placeholder="搜索..." oninput="filterExpressions()"></div></div>
             </div>
             <div class="expression-grid" id="expressionGrid"></div>
@@ -424,10 +581,10 @@
         <div class="page" id="memoryPage">
             <div class="memory-mode-container">
                 <div class="memory-stats">
-                    <div class="memory-stat new"><div class="num" id="memNewCount">0</div><div class="label">新词</div></div>
-                    <div class="memory-stat learning"><div class="num" id="memLearningCount">0</div><div class="label">学习中</div></div>
-                    <div class="memory-stat familiar"><div class="num" id="memFamiliarCount">0</div><div class="label">熟悉</div></div>
-                    <div class="memory-stat mastered"><div class="num" id="memMasteredCount">0</div><div class="label">已掌握</div></div>
+                    <div class="memory-stat new"><div class="num" id="memNewCount" style="color:var(--accent-blue)">0</div><div class="label">新词</div></div>
+                    <div class="memory-stat learning"><div class="num" id="memLearningCount" style="color:var(--accent-orange)">0</div><div class="label">学习中</div></div>
+                    <div class="memory-stat familiar"><div class="num" id="memFamiliarCount" style="color:var(--accent-purple)">0</div><div class="label">熟悉</div></div>
+                    <div class="memory-stat mastered"><div class="num" id="memMasteredCount" style="color:var(--accent-green)">0</div><div class="label">已掌握</div></div>
                 </div>
                 <div id="memoryContent"></div>
             </div>
@@ -443,9 +600,17 @@
 
 <script>
 const STORAGE_KEY='english_journal_data',VOCAB_KEY='english_vocabulary_data',EXPR_KEY='english_expressions_data';
-
-/* ✅ 新增：翻译缓存（避免重复请求） */
 const TRANSLATE_CACHE_KEY='english_translate_cache_v1';
+
+/* ✅ 核心修复：获取本地时间字符串 (YYYY-MM-DD)，无视时区干扰 */
+function getLocalDateString(dateObj) {
+    const d = dateObj || new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function getTranslateCache(){
     try { return JSON.parse(localStorage.getItem(TRANSLATE_CACHE_KEY)||'{}'); }
     catch(e){ return {}; }
@@ -453,7 +618,7 @@ function getTranslateCache(){
 function saveTranslateCache(cache){
     localStorage.setItem(TRANSLATE_CACHE_KEY, JSON.stringify(cache));
 }
-/* ✅ 新增：英文->中文翻译（MyMemory，无需key） */
+
 async function translateToZh(text){
     const t=(text||'').trim();
     if(!t) return '';
@@ -479,20 +644,21 @@ async function translateToZh(text){
     }
 }
 
-let currentYear=new Date().getFullYear(),currentMonth=new Date().getMonth(),selectedDate=new Date().toISOString().split('T')[0];
+let currentYear=new Date().getFullYear(),currentMonth=new Date().getMonth();
+// ✅ 修复：初始化使用本地日期
+let selectedDate = getLocalDateString();
+
 let currentVocabPage=1,currentExprPage=1,PER_PAGE=12,speechRate=0.6,currentSpeaking=null;
 let reviewQueue=[],currentCardIndex=0,reviewStats={again:0,hard:0,good:0,easy:0},isCardFlipped=false;
 let wordCardsData=[];
 
 const commonWords=new Set(['the','a','an','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','must','shall','can','need','to','of','in','for','on','with','at','by','from','up','about','into','over','after','under','i','you','he','she','it','we','they','me','him','her','us','them','my','your','his','its','our','their','this','that','these','those','what','which','who','where','when','why','how','all','each','every','both','few','more','most','other','some','no','not','only','same','so','than','too','very','just','also','now','here','there','then','and','but','or','if','because','as','until','while','although','though','before','since','unless','however','therefore','like','get','got','make','made','go','went','come','came','take','took','see','saw','know','knew','think','thought','want','say','said','tell','told','use','used','find','found','give','gave','let','put','seem','leave','left','call','called','keep','kept','try','tried','ask','asked','work','worked','become','became','look','looked','show','showed','hear','heard','play','played','run','ran','move','moved','live','lived','believe','believed','hold','held','bring','brought','happen','happened','write','wrote','provide','provided','sit','sat','stand','stood','lose','lost','pay','paid','meet','met','include','included','continue','continued','set','learn','learned','change','changed','lead','led','understand','understood','watch','watched','follow','followed','stop','stopped','create','created','speak','spoke','read','allow','allowed','add','added','spend','spent','grow','grew','open','opened','walk','walked','win','won','offer','offered','remember','remembered','love','loved','consider','considered','appear','appeared','buy','bought','wait','waited','serve','served','die','died','send','sent','expect','expected','build','built','stay','stayed','fall','fell','cut','reach','reached','kill','killed','remain','remained','suggest','suggested','raise','raised','pass','passed','sell','sold','require','required','report','reported','decide','decided','pull','pulled']);
 
-// 语音功能
 function speak(text,onEnd){if('speechSynthesis'in window){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=speechRate;const v=window.speechSynthesis.getVoices(),ev=v.find(x=>x.lang.includes('en'));if(ev)u.voice=ev;u.onend=()=>{if(currentSpeaking){currentSpeaking.classList.remove('speaking');currentSpeaking=null}if(onEnd)onEnd()};window.speechSynthesis.speak(u)}}
 function speakElement(el,text){if(currentSpeaking){currentSpeaking.classList.remove('speaking');window.speechSynthesis.cancel();if(currentSpeaking===el){currentSpeaking=null;return}}currentSpeaking=el;el.classList.add('speaking');speak(text)}
 function updateSpeechRate(){speechRate=parseFloat(document.getElementById('speechRate').value);document.getElementById('speedValue').textContent=speechRate+'x'}
 if('speechSynthesis'in window){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices()}
 
-// 数据存储
 function getAllRecords(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}
 function saveAllRecords(r){localStorage.setItem(STORAGE_KEY,JSON.stringify(r))}
 function getVocabulary(){return JSON.parse(localStorage.getItem(VOCAB_KEY)||'{}')}
@@ -501,7 +667,6 @@ function getExpressions(){return JSON.parse(localStorage.getItem(EXPR_KEY)||'{}'
 function saveExpressions(e){localStorage.setItem(EXPR_KEY,JSON.stringify(e))}
 function getRecord(d){return getAllRecords()[d]||null}
 
-/* ✅ 词典API（英文） + 中文翻译补全（MyMemory） */
 async function lookupWord(word){
     try{
         const res=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word.toLowerCase())}`);
@@ -532,7 +697,6 @@ async function lookupWord(word){
             }
         }
 
-        // ✅ 自动翻译：释义英文 -> 中文、例句英文 -> 中文
         if(meaningEn){
             meaningZh = await translateToZh(meaningEn);
         }
@@ -554,11 +718,10 @@ async function lookupWord(word){
     }
 }
 
-// 提取生词
 async function extractVocabulary(){
     const btn=document.getElementById('extractVocabBtn');
     btn.classList.add('extracting');
-    btn.innerHTML='<span>⏳</span> 提取并查询词典+翻译...';
+    btn.innerHTML='<span>⏳</span> 提取并查询...';
 
     const text=document.getElementById('conversationInput').value;
     const words=extractWordsFromText(text);
@@ -577,8 +740,8 @@ async function extractVocabulary(){
             id:Date.now()+i,
             word:w.word,
             phonetic:'',
-            meaning:'',       // ✅ 中文释义（可编辑）
-            meaningEn:'',     // ✅ 英文释义（参考）
+            meaning:'',
+            meaningEn:'',
             example:'',
             exampleZh:'',
             loading:true
@@ -592,20 +755,14 @@ async function extractVocabulary(){
 
         if(dictData){
             card.phonetic=dictData.phonetic||'';
-
-            // ✅ 先放英文释义到 meaningEn，再把中文翻译放到 meaning
             card.meaningEn=dictData.meaningEn||'';
-            // 若翻译成功：meaning=中文；否则保留原有（可能用户自己写的中文）
             if(dictData.meaningZh) card.meaning=dictData.meaningZh;
-
             card.example=dictData.example||'';
             card.exampleZh=dictData.exampleZh||'';
         }
 
         card.loading=false;
         renderWordCards();
-
-        // ✅ 小延迟，减少接口压力
         await new Promise(r=>setTimeout(r,220));
     }
 
@@ -630,11 +787,10 @@ function extractWordsFromText(text){
     return words.slice(0,10);
 }
 
-// 渲染生词卡片
 function renderWordCards(){
     const container=document.getElementById('wordCards');
     if(wordCardsData.length===0){
-        container.innerHTML='<div class="empty-state" style="padding:20px"><p style="font-size:0.85rem;color:var(--text-muted)">点击「提取生词」或「手动添加」</p></div>';
+        container.innerHTML='<div class="empty-state" style="padding:20px;text-align:center;color:var(--text-muted)"><p>暂无生词，点击「提取生词」或「手动添加」</p></div>';
         return;
     }
     container.innerHTML=wordCardsData.map((card,idx)=>`
@@ -662,10 +818,10 @@ function renderWordCards(){
                 </div>
                 <input type="text" value="${escapeHtml(card.meaning)}" onchange="updateWordCard(${idx},'meaning',this.value)" placeholder="中文释义（自动翻译，可编辑）">
                 <input type="text" value="${escapeHtml(card.meaningEn||'')}" onchange="updateWordCard(${idx},'meaningEn',this.value)" placeholder="英文释义（参考，可编辑）">
-                <textarea onchange="updateWordCard(${idx},'example',this.value)" placeholder="例句（英文）">${escapeHtml(card.example)}</textarea>
+                <textarea onchange="updateWordCard(${idx},'example',this.value)" placeholder="例句（英文）" rows="2">${escapeHtml(card.example)}</textarea>
                 <input type="text" value="${escapeHtml(card.exampleZh)}" onchange="updateWordCard(${idx},'exampleZh',this.value)" placeholder="例句翻译（中文）">
             </div>
-            ${card.loading?'<div class="word-card-status">⏳ 正在查询词典+翻译...</div>':''}
+            ${card.loading?'<div style="font-size:0.8rem;color:var(--accent-blue);margin-top:8px">⏳ 正在查询词典...</div>':''}
         </div>
     `).join('');
 }
@@ -697,7 +853,6 @@ function addWordCard(){
     renderWordCards();
 }
 
-// 提取表达
 function extractExpressions(){
     const btn=document.getElementById('extractExprBtn');
     btn.classList.add('extracting');
@@ -770,7 +925,7 @@ function saveRecord(){
     updateStats();
     renderCalendar();
     showHistoryPreview();
-    showToast('保存成功 💪');
+    showToast('保存成功');
 }
 
 function syncVocabulary(){
@@ -858,7 +1013,10 @@ function renderCalendar(){
     const fd=new Date(currentYear,currentMonth,1),ld=new Date(currentYear,currentMonth+1,0);
     const sd=fd.getDay(),dm=ld.getDate();
     document.getElementById('calendarTitle').textContent=`${currentYear}年${currentMonth+1}月`;
-    const today=new Date().toISOString().split('T')[0];
+    
+    // ✅ 修复：使用 getLocalDateString 获取今天
+    const today = getLocalDateString();
+    
     let h='';
     const pld=new Date(currentYear,currentMonth,0).getDate();
     for(let i=sd-1;i>=0;i--){
@@ -887,7 +1045,19 @@ function renderCalendar(){
     document.getElementById('calendarDays').innerHTML=h;
     document.querySelectorAll('.day:not(.empty)').forEach(de=>de.addEventListener('click',()=>selectDate(de.dataset.date)));
 }
-function selectDate(d){selectedDate=d;const o=new Date(d);currentYear=o.getFullYear();currentMonth=o.getMonth();renderCalendar();loadRecord(d)}
+
+// ✅ 修复：手动解析字符串，避免 Date(string) 带来的时区偏移
+function selectDate(d){
+    selectedDate = d;
+    const parts = d.split('-');
+    if(parts.length === 3) {
+        currentYear = parseInt(parts[0]);
+        currentMonth = parseInt(parts[1]) - 1;
+    }
+    renderCalendar();
+    loadRecord(d);
+}
+
 function prevMonth(){currentMonth--;if(currentMonth<0){currentMonth=11;currentYear--}renderCalendar()}
 function nextMonth(){currentMonth++;if(currentMonth>11){currentMonth=0;currentYear++}renderCalendar()}
 
@@ -900,7 +1070,10 @@ function updateStats(){
     const mc=Object.values(vocab).filter(v=>v.mastery==='mastered').length;
     document.getElementById('masteredWords').textContent=mc;
     let streak=0;const today=new Date();today.setHours(0,0,0,0);
-    for(let i=0;i<=365;i++){const cd=new Date(today);cd.setDate(cd.getDate()-i);const ds=cd.toISOString().split('T')[0];if(records[ds])streak++;else if(i>0)break}
+    for(let i=0;i<=365;i++){const cd=new Date(today);cd.setDate(cd.getDate()-i);
+        const ds=getLocalDateString(cd); // ✅ 修复：统计打卡使用本地时间
+        if(records[ds])streak++;else if(i>0)break
+    }
     document.getElementById('streakDays').textContent=streak;
 }
 function updateVocabCount(){document.getElementById('vocabCount').textContent=Object.keys(getVocabulary()).length}
@@ -908,11 +1081,14 @@ function updateExprCount(){document.getElementById('exprCount').textContent=Obje
 
 function showHistoryPreview(){
     const r=getRecord(selectedDate);const c=document.getElementById('historyPreview');
-    if(!r){c.innerHTML='<div class="empty-state"><div class="icon">📝</div><p>这天还没有记录</p></div>';return}
-    const o=new Date(selectedDate);const ds=`${o.getFullYear()}年${o.getMonth()+1}月${o.getDate()}日`;
-    let h=`<div class="record-card" style="margin-top:18px"><h3><span class="icon">📋</span> ${ds}</h3>`;
+    if(!r){c.innerHTML='<div class="empty-state" style="padding:24px;text-align:center;color:var(--text-muted)"><p>📝 这天还没有记录</p></div>';return}
+    // ✅ 修复：简单字符串分割，避免 new Date 偏差
+    const parts = selectedDate.split('-');
+    const ds = `${parts[0]}年${parseInt(parts[1])}月${parseInt(parts[2])}日`;
+    
+    let h=`<div class="record-card" style="margin-top:24px"><h3><span>📋</span> ${ds}</h3>`;
     if(r.words&&r.words.length>0){
-        h+='<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">';
+        h+='<div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px">';
         r.words.forEach(w=>{
             const meaningEn = w.meaningEn || '';
             h+=`<div class="word-card" style="cursor:pointer" onclick="speak('${escapeHtml(w.word).replace(/'/g,"\\'")}')">
@@ -941,7 +1117,7 @@ function renderVocabGrid(){
     const g=document.getElementById('vocabGrid');
 
     if(items.length===0){
-        g.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="icon">📚</div><p>还没有生词</p></div>';
+        g.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:40px">📚 还没有生词</div>';
     }else{
         g.innerHTML=pi.map(v=>`
             <div class="vocab-grid-card" onclick="speakElement(this,'${escapeHtml(v.word).replace(/'/g,"\\'")}')">
@@ -949,7 +1125,7 @@ function renderVocabGrid(){
                     <div><span class="vocab-grid-word">${escapeHtml(v.word)}</span><span class="vocab-grid-phonetic">${escapeHtml(v.phonetic||'')}</span></div>
                     <div class="vocab-grid-meta">
                         ${getMasteryBadge(v.mastery)}
-                        <button class="action-btn" onclick="event.stopPropagation();deleteVocab('${v.word.toLowerCase()}')" style="margin-left:4px;background:transparent;border:none;cursor:pointer">🗑️</button>
+                        <button class="action-btn" onclick="event.stopPropagation();deleteVocab('${v.word.toLowerCase()}')" style="margin-left:8px;background:transparent;border:none;cursor:pointer;opacity:0.4;font-size:1.1rem">🗑️</button>
                     </div>
                 </div>
                 <div class="vocab-grid-meaning">${escapeHtml(v.meaning||'暂无中文释义')}</div>
@@ -958,7 +1134,7 @@ function renderVocabGrid(){
                     <div class="en">🔊 ${escapeHtml(v.example)}</div>
                     ${v.exampleZh?`<div class="zh">${escapeHtml(v.exampleZh)}</div>`:''}
                 </div>`:''}
-                <div class="vocab-grid-footer"><span>${v.addedDate}</span><span style="color:var(--accent-cyan)">🔊 点击朗读</span></div>
+                <div class="vocab-grid-footer"><span>${v.addedDate}</span><span style="color:var(--accent-blue)">🔊 点击朗读</span></div>
             </div>
         `).join('');
     }
@@ -977,12 +1153,12 @@ function getMasteryBadge(m){
 function renderPagination(cid,tp,cp,opc){
     const c=document.getElementById(cid);
     if(tp<=1){c.innerHTML='';return}
-    c.innerHTML=`<button ${cp===1?'disabled':''}>上一页</button><span class="page-info">${cp}/${tp}</span><button ${cp===tp?'disabled':''}>下一页</button>`;
+    c.innerHTML=`<button ${cp===1?'disabled':''}>上一页</button><span class="page-info" style="margin:0 12px;color:var(--text-muted);font-size:0.9rem">${cp} / ${tp}</span><button ${cp===tp?'disabled':''}>下一页</button>`;
     c.querySelector('button:first-child').onclick=()=>{if(cp>1)opc(cp-1)};
     c.querySelector('button:last-child').onclick=()=>{if(cp<tp)opc(cp+1)};
 }
 function filterVocab(){currentVocabPage=1;renderVocabGrid()}
-function deleteVocab(k){if(confirm('删除？')){const v=getVocabulary();delete v[k];saveVocabulary(v);renderVocabGrid();updateVocabCount();updateStats();showToast('已删除')}}
+function deleteVocab(k){if(confirm('确定删除这个生词吗？')){const v=getVocabulary();delete v[k];saveVocabulary(v);renderVocabGrid();updateVocabCount();updateStats();showToast('已删除')}}
 
 function renderExpressionsGrid(){
     const expr=getExpressions();const search=document.getElementById('exprSearch').value.toLowerCase();
@@ -991,8 +1167,8 @@ function renderExpressionsGrid(){
     items.sort((a,b)=>new Date(b.addedDate)-new Date(a.addedDate));
     const tp=Math.ceil(items.length/12);const si=(currentExprPage-1)*12;const pi=items.slice(si,si+12);
     const g=document.getElementById('expressionGrid');
-    if(items.length===0){g.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="icon">💬</div><p>还没有今日表达</p></div>'}
-    else{g.innerHTML=pi.map(e=>`<div class="expression-card-item" onclick="speakElement(this,'${escapeHtml(e.en).replace(/'/g,"\\'")}')"><div class="en">${escapeHtml(e.en)}</div><div class="zh">${escapeHtml(e.zh)}</div><div class="meta"><span>${e.addedDate}</span><span class="play-hint">🔊 朗读</span></div></div>`).join('')}
+    if(items.length===0){g.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:40px">💬 还没有今日表达</div>'}
+    else{g.innerHTML=pi.map(e=>`<div class="expression-item" style="height:100%" onclick="speakElement(this,'${escapeHtml(e.en).replace(/'/g,"\\'")}')"><div class="en">${escapeHtml(e.en)}</div><div class="zh">${escapeHtml(e.zh)}</div><div class="meta" style="margin-top:12px;font-size:0.75rem;color:var(--text-muted);display:flex;justify-content:space-between"><span>${e.addedDate}</span><span>🔊 朗读</span></div></div>`).join('')}
     renderPagination('exprPagination',tp,currentExprPage,p=>{currentExprPage=p;renderExpressionsGrid()});
 }
 function filterExpressions(){currentExprPage=1;renderExpressionsGrid()}
@@ -1009,23 +1185,29 @@ function renderMemoryPage(){
     document.getElementById('memLearningCount').textContent=counts.learning;
     document.getElementById('memFamiliarCount').textContent=counts.familiar;
     document.getElementById('memMasteredCount').textContent=counts.mastered;
-    const today=new Date().toISOString().split('T')[0];
+    
+    // ✅ 修复：复习计划使用本地时间
+    const today = getLocalDateString();
+    
     const dfr=items.filter(v=>v.nextReview<=today&&v.mastery!=='mastered');
     const nw=items.filter(v=>v.mastery==='new');
     const c=document.getElementById('memoryContent');
     if(reviewQueue.length>0){renderFlashcard()}
     else{
-        c.innerHTML=`<div class="start-review"><h2>🧠 开始记忆</h2><p>选择学习模式</p><div class="review-options">
-            <div class="review-option" onclick="startReview('due')"><div class="num">${dfr.length}</div><div class="label">待复习</div></div>
-            <div class="review-option" onclick="startReview('new')"><div class="num">${nw.length}</div><div class="label">新词</div></div>
-            <div class="review-option" onclick="startReview('all')"><div class="num">${items.length}</div><div class="label">全部</div></div>
-            <div class="review-option" onclick="startReview('random20')"><div class="num">20</div><div class="label">随机</div></div>
+        c.innerHTML=`<div class="start-review"><h2>🧠 开始记忆</h2><p style="color:var(--text-secondary)">选择一个模式开始复习</p><div class="review-options">
+            <div class="review-option" onclick="startReview('due')"><div class="num" style="color:var(--accent-orange)">${dfr.length}</div><div class="label">待复习</div></div>
+            <div class="review-option" onclick="startReview('new')"><div class="num" style="color:var(--accent-blue)">${nw.length}</div><div class="label">新词</div></div>
+            <div class="review-option" onclick="startReview('all')"><div class="num" style="color:var(--text-primary)">${items.length}</div><div class="label">全部</div></div>
+            <div class="review-option" onclick="startReview('random20')"><div class="num" style="color:var(--accent-purple)">20</div><div class="label">随机</div></div>
         </div></div>`;
     }
 }
 
 function startReview(mode){
-    const vocab=getVocabulary();const items=Object.values(vocab);const today=new Date().toISOString().split('T')[0];
+    const vocab=getVocabulary();const items=Object.values(vocab);
+    // ✅ 修复：复习开始使用本地时间
+    const today = getLocalDateString();
+    
     switch(mode){
         case'due':reviewQueue=items.filter(v=>v.nextReview<=today&&v.mastery!=='mastered');break;
         case'new':reviewQueue=items.filter(v=>v.mastery==='new');break;
@@ -1040,44 +1222,47 @@ function shuffleArray(a){const arr=[...a];for(let i=arr.length-1;i>0;i--){const 
 function renderFlashcard(){
     const c=document.getElementById('memoryContent');
     if(currentCardIndex>=reviewQueue.length){
-        c.innerHTML=`<div class="review-complete"><div class="icon">🎉</div><h2>完成！</h2><p>本次复习结束</p>
-        <div class="review-summary">
-            <div class="review-summary-item"><div class="num" style="color:var(--accent-red)">${reviewStats.again}</div><div class="label">忘记</div></div>
-            <div class="review-summary-item"><div class="num" style="color:var(--accent-orange)">${reviewStats.hard}</div><div class="label">困难</div></div>
-            <div class="review-summary-item"><div class="num" style="color:var(--accent-blue)">${reviewStats.good}</div><div class="label">记住</div></div>
-            <div class="review-summary-item"><div class="num" style="color:var(--accent-green)">${reviewStats.easy}</div><div class="label">简单</div></div>
+        c.innerHTML=`<div class="start-review"><div style="font-size:3rem;margin-bottom:16px">🎉</div><h2>复习完成！</h2><p style="color:var(--text-secondary)">本次复习统计</p>
+        <div class="memory-stats" style="margin-top:24px">
+            <div class="memory-stat"><div class="num" style="color:var(--accent-red)">${reviewStats.again}</div><div class="label">忘记</div></div>
+            <div class="memory-stat"><div class="num" style="color:var(--accent-orange)">${reviewStats.hard}</div><div class="label">困难</div></div>
+            <div class="memory-stat"><div class="num" style="color:var(--accent-blue)">${reviewStats.good}</div><div class="label">记住</div></div>
+            <div class="memory-stat"><div class="num" style="color:var(--accent-green)">${reviewStats.easy}</div><div class="label">简单</div></div>
         </div>
-        <button class="btn btn-primary" onclick="resetReview()">继续学习</button></div>`;
+        <button class="btn btn-primary" style="margin:20px auto" onclick="resetReview()">返回</button></div>`;
         return;
     }
     const card=reviewQueue[currentCardIndex];
     c.innerHTML=`<div class="flashcard-container"><div class="flashcard ${isCardFlipped?'flipped':''}" onclick="flipCard()">
-        <div class="flashcard-progress">${currentCardIndex+1}/${reviewQueue.length}</div>
-        <div class="flashcard-mastery">${getMasteryBadge(card.mastery)}</div>
+        <div style="position:absolute;top:20px;right:24px;color:var(--text-muted);font-size:0.9rem">${currentCardIndex+1} / ${reviewQueue.length}</div>
+        <div style="position:absolute;top:20px;left:24px">${getMasteryBadge(card.mastery)}</div>
         <div class="flashcard-front">
             <div class="flashcard-word" onclick="event.stopPropagation();speak('${escapeHtml(card.word).replace(/'/g,"\\'")}')">${escapeHtml(card.word)}</div>
             <div class="flashcard-phonetic">${escapeHtml(card.phonetic||'')}</div>
-            <div class="flashcard-hint">点击单词朗读 · 点击卡片翻转</div>
+            <div class="flashcard-hint">点击卡片翻转查看释义</div>
         </div>
         <div class="flashcard-back">
             <div class="flashcard-meaning">${escapeHtml(card.meaning||'暂无中文释义')}</div>
-            ${card.meaningEn?`<div class="flashcard-meaning-en">EN: ${escapeHtml(card.meaningEn)}</div>`:''}
-            ${card.example?`<div class="flashcard-example"><div class="en">${escapeHtml(card.example)}</div>${card.exampleZh?`<div class="zh">${escapeHtml(card.exampleZh)}</div>`:''}</div>`:''}
+            ${card.meaningEn?`<div style="font-size:0.9rem;color:var(--text-muted);text-align:center;margin-bottom:12px;line-height:1.5">EN: ${escapeHtml(card.meaningEn)}</div>`:''}
+            ${card.example?`<div class="flashcard-example"><div class="en" style="font-family:'Crimson Pro',serif;font-size:1.1rem;margin-bottom:4px">${escapeHtml(card.example)}</div>${card.exampleZh?`<div class="zh" style="font-size:0.9rem;color:var(--text-secondary)">${escapeHtml(card.exampleZh)}</div>`:''}</div>`:''}
         </div>
-        <button class="flashcard-speak" onclick="event.stopPropagation();speak('${escapeHtml(card.word).replace(/'/g,"\\'")}')">🔊 朗读</button>
+        <button style="position:absolute;bottom:20px;right:24px;background:var(--bg-input);border:none;padding:8px 16px;border-radius:20px;cursor:pointer;color:var(--text-secondary);font-size:0.85rem" onclick="event.stopPropagation();speak('${escapeHtml(card.word).replace(/'/g,"\\'")}')">🔊 朗读</button>
     </div></div>
     <div class="memory-buttons" style="display:${isCardFlipped?'grid':'none'}">
-        <button class="memory-btn again" onclick="rateCard('again')"><span class="label">忘记了</span><span class="desc">1分钟</span></button>
-        <button class="memory-btn hard" onclick="rateCard('hard')"><span class="label">有点难</span><span class="desc">10分钟</span></button>
-        <button class="memory-btn good" onclick="rateCard('good')"><span class="label">记住了</span><span class="desc">1天</span></button>
-        <button class="memory-btn easy" onclick="rateCard('easy')"><span class="label">太简单</span><span class="desc">4天</span></button>
+        <button class="memory-btn again" onclick="rateCard('again')"><span style="font-weight:600">忘记了</span><span style="font-size:0.75rem;opacity:0.8">1分钟</span></button>
+        <button class="memory-btn hard" onclick="rateCard('hard')"><span style="font-weight:600">有点难</span><span style="font-size:0.75rem;opacity:0.8">10分钟</span></button>
+        <button class="memory-btn good" onclick="rateCard('good')"><span style="font-weight:600">记住了</span><span style="font-size:0.75rem;opacity:0.8">1天</span></button>
+        <button class="memory-btn easy" onclick="rateCard('easy')"><span style="font-weight:600">太简单</span><span style="font-size:0.75rem;opacity:0.8">4天</span></button>
     </div>`;
 }
 function flipCard(){isCardFlipped=!isCardFlipped;renderFlashcard()}
 function rateCard(rating){
     const card=reviewQueue[currentCardIndex];const vocab=getVocabulary();const k=card.word.toLowerCase();
     if(vocab[k]){
-        vocab[k].reviewCount++;vocab[k].lastReview=new Date().toISOString().split('T')[0];
+        vocab[k].reviewCount++;
+        // ✅ 修复：使用本地时间记录最后复习时间
+        vocab[k].lastReview = getLocalDateString();
+        
         const today=new Date();let nr=new Date(today);
         switch(rating){
             case'again':vocab[k].mastery='learning';nr.setMinutes(nr.getMinutes()+1);break;
@@ -1091,7 +1276,10 @@ function rateCard(rating){
                 else if(vocab[k].mastery==='familiar')vocab[k].mastery='mastered';
                 nr.setDate(nr.getDate()+4);break
         }
-        vocab[k].nextReview=nr.toISOString().split('T')[0];saveVocabulary(vocab);
+        // ✅ 修复：使用本地时间记录下次复习时间
+        vocab[k].nextReview = getLocalDateString(nr);
+        
+        saveVocabulary(vocab);
     }
     reviewStats[rating]++;currentCardIndex++;isCardFlipped=false;renderFlashcard();renderMemoryPage();
 }
