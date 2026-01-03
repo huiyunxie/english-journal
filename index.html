@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 🎨 极简白底配色系统 (保持不变) */
+            /* 🎨 极简白底配色系统 */
             --bg-primary: #f8f9fb;      
             --bg-card: #ffffff;         
             --bg-input: #f3f4f6;        
@@ -460,6 +460,19 @@
             border: 1px solid var(--border-color);
         }
 
+        /* ✅ 新增：备份/恢复按钮样式 */
+        .backup-section {
+            display: flex; justify-content: center; gap: 16px; margin-top: 40px;
+            padding-top: 30px; border-top: 1px solid var(--border-color);
+        }
+        .backup-btn {
+            background: var(--bg-input); border: 1px solid var(--border-color);
+            padding: 10px 20px; border-radius: 10px; color: var(--text-secondary);
+            cursor: pointer; transition: 0.2s; font-size: 0.85rem;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .backup-btn:hover { background: var(--bg-hover); color: var(--text-primary); transform: translateY(-1px); }
+
         @media (max-width: 768px) {
             .container { padding: 20px 16px; }
             header h1 { font-size: 2rem; }
@@ -468,6 +481,7 @@
             .vocab-grid { grid-template-columns: 1fr; }
             .memory-stats { grid-template-columns: repeat(2, 1fr); }
             .memory-buttons { grid-template-columns: repeat(2, 1fr); }
+            .backup-section { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -553,6 +567,16 @@
                     <div id="historyPreview"></div>
                 </div>
             </div>
+            
+            <div class="backup-section">
+                <button class="backup-btn" onclick="exportData()">⬇️ 备份数据 (导出 JSON)</button>
+                <button class="backup-btn" onclick="document.getElementById('importFile').click()">⬆️ 恢复数据 (导入 JSON)</button>
+                <input type="file" id="importFile" style="display:none" onchange="importData(this)" accept=".json">
+            </div>
+            <div style="text-align:center;font-size:0.75rem;color:var(--text-muted);margin-top:10px">
+                ⚠️ 注意：本网站是纯静态的，数据仅保存在您的浏览器缓存中。<br>
+                如果更换设备或清理缓存，请务必先点击「备份数据」。
+            </div>
         </div>
 
         <div class="page" id="vocabularyPage">
@@ -602,7 +626,6 @@
 const STORAGE_KEY='english_journal_data',VOCAB_KEY='english_vocabulary_data',EXPR_KEY='english_expressions_data';
 const TRANSLATE_CACHE_KEY='english_translate_cache_v1';
 
-/* ✅ 核心修复：获取本地时间字符串 (YYYY-MM-DD)，无视时区干扰 */
 function getLocalDateString(dateObj) {
     const d = dateObj || new Date();
     const year = d.getFullYear();
@@ -645,7 +668,6 @@ async function translateToZh(text){
 }
 
 let currentYear=new Date().getFullYear(),currentMonth=new Date().getMonth();
-// ✅ 修复：初始化使用本地日期
 let selectedDate = getLocalDateString();
 
 let currentVocabPage=1,currentExprPage=1,PER_PAGE=12,speechRate=0.6,currentSpeaking=null;
@@ -659,13 +681,74 @@ function speakElement(el,text){if(currentSpeaking){currentSpeaking.classList.rem
 function updateSpeechRate(){speechRate=parseFloat(document.getElementById('speechRate').value);document.getElementById('speedValue').textContent=speechRate+'x'}
 if('speechSynthesis'in window){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices()}
 
-function getAllRecords(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}
-function saveAllRecords(r){localStorage.setItem(STORAGE_KEY,JSON.stringify(r))}
+function getAllRecords(){
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    } catch(e) {
+        console.error('Error reading records:', e);
+        return {};
+    }
+}
+function saveAllRecords(r){
+    try {
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(r));
+        console.log('Records saved successfully');
+    } catch(e) {
+        console.error('Error saving records:', e);
+        alert('保存失败，可能是存储空间不足');
+    }
+}
 function getVocabulary(){return JSON.parse(localStorage.getItem(VOCAB_KEY)||'{}')}
 function saveVocabulary(v){localStorage.setItem(VOCAB_KEY,JSON.stringify(v))}
 function getExpressions(){return JSON.parse(localStorage.getItem(EXPR_KEY)||'{}')}
 function saveExpressions(e){localStorage.setItem(EXPR_KEY,JSON.stringify(e))}
 function getRecord(d){return getAllRecords()[d]||null}
+
+/* ✅ 新增：导出数据功能 */
+function exportData() {
+    const data = {
+        records: getAllRecords(),
+        vocabulary: getVocabulary(),
+        expressions: getExpressions(),
+        cache: getTranslateCache()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `english-journal-backup-${getLocalDateString()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('备份文件已下载');
+}
+
+/* ✅ 新增：导入数据功能 */
+function importData(input) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.records) saveAllRecords(data.records);
+            if (data.vocabulary) saveVocabulary(data.vocabulary);
+            if (data.expressions) saveExpressions(data.expressions);
+            if (data.cache) saveTranslateCache(data.cache);
+            
+            showToast('数据恢复成功！正在刷新...');
+            setTimeout(() => location.reload(), 1000);
+        } catch (err) {
+            alert('文件格式错误，无法导入');
+            console.error(err);
+        }
+    };
+    reader.readAsText(file);
+    // 重置 input 以便重复导入同名文件
+    input.value = '';
+}
 
 async function lookupWord(word){
     try{
